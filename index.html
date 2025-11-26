@@ -15,103 +15,166 @@
 </head>
 
 <body>
-    <header>
-        <header>
-            <div class="px-3 py-2 text-bg-dark border-bottom">
-                <div class="container-fluid">
-                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                        <a href="#"
-                            class="d-flex align-items-center gap-2 my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                            <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+    <header class="fixed-top">
+        <div class="px-3 py-2 text-bg-dark border-bottom">
+            <div class="container-fluid">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="#"
+                        class="d-flex align-items-center gap-2 my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                        <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2"
                                     d="M9 10V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v4m3-2 .917 11.923A1 1 0 0 1 17.92 21H6.08a1 1 0 0 1-.997-1.077L6 8h12Z" />
                             </svg> -->
-                            <img src="assets/images/logos/shopping-bag.png" width="48" alt="FashionRack POS" srcset="">
-                            <span class="fs-3 fw-bold">FashionRack POS</span>
-                        </a>
-                        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                            <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-secondary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="lucide lucide-package-check-icon lucide-package-check">
-                                        <path d="m16 16 2 2 4-4" />
-                                        <path
-                                            d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
-                                        <path d="m7.5 4.27 9 5.15" />
-                                        <polyline points="3.29 7 12 12 20.71 7" />
-                                        <line x1="12" x2="12" y1="22" y2="12" />
-                                    </svg>
-                                    Products
-                                </a>
-                            </li>
-                            <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-users-icon lucide-users">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                        <path d="M16 3.128a4 4 0 0 1 0 7.744" />
-                                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                        <circle cx="9" cy="7" r="4" />
-                                    </svg>
-                                    Customers
-                                </a>
-                            </li>
-                            <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="lucide lucide-receipt-text-icon lucide-receipt-text">
-                                        <path d="M13 16H8" />
-                                        <path d="M14 8H8" />
-                                        <path d="M16 12H8" />
-                                        <path
-                                            d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" />
-                                    </svg>
-                                    Orders
-                                </a>
-                            </li>
-                            <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <path d="M12 16v-4" />
-                                        <path d="M12 8h.01" />
-                                    </svg>
-                                    Help
-                                </a>
-                            </li>
-                            <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings">
-                                        <path
-                                            d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
-                                    Settings
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                        <img src="assets/images/logos/shopping-bag.png" width="48" alt="FashionRack POS" srcset="">
+                        <span class="fs-3 fw-bold">FashionRack POS</span>
+                    </a>
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="lucide lucide-package-check-icon lucide-package-check">
+                                    <path d="m16 16 2 2 4-4" />
+                                    <path
+                                        d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
+                                    <path d="m7.5 4.27 9 5.15" />
+                                    <polyline points="3.29 7 12 12 20.71 7" />
+                                    <line x1="12" x2="12" y1="22" y2="12" />
+                                </svg>
+                                Products
+                            </a>
+                        </li>
+                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-users-icon lucide-users">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                    <circle cx="9" cy="7" r="4" />
+                                </svg>
+                                Customers
+                            </a>
+                        </li>
+                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-receipt-text-icon lucide-receipt-text">
+                                    <path d="M13 16H8" />
+                                    <path d="M14 8H8" />
+                                    <path d="M16 12H8" />
+                                    <path
+                                        d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" />
+                                </svg>
+                                Orders
+                            </a>
+                        </li>
+                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16v-4" />
+                                    <path d="M12 8h.01" />
+                                </svg>
+                                Help
+                            </a>
+                        </li>
+                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings">
+                                    <path
+                                        d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="px-3 py-2 border-bottom mb-3">
-                <div class="container-fluid d-flex flex-wrap justify-content-center">
-                    <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                    </form>
-                </div>
+        </div>
+        <div class="px-3 py-2 border-bottom mb-3">
+            <div class="container-fluid d-flex flex-wrap justify-content-center">
+                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
             </div>
-        </header>
+        </div>
     </header>
     <main>
         <section>
+            <div class="col-lg-2 col-md-3 sidebar-categories bg-light">
+                <div class="categories-header">
+                    <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-tag"></i> Categories</h6>
+                    <button class="btn btn-sm btn-link" id="toggleSidebar" title="Toggle Sidebar">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                </div>
 
+                <div class="categories-list">
+                    <div class="category-item active" data-category="all" onclick="filterProducts('all')">
+                        <i class="bi bi-grid"></i> All Products
+                    </div>
+                    <div class="category-item" data-category="shirts" onclick="filterProducts('shirts')">
+                        <i class="bi bi-bag"></i> Shirts
+                    </div>
+                    <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
+                        <i class="bi bi-bag"></i> Pants
+                    </div>
+                    <div class="category-item" data-category="dresses" onclick="filterProducts('dresses')">
+                        <i class="bi bi-bag"></i> Dresses
+                    </div>
+                    <div class="category-item" data-category="accessories" onclick="filterProducts('accessories')">
+                        <i class="bi bi-bag"></i> Accessories
+                    </div>
+                    <div class="category-item" data-category="footwear" onclick="filterProducts('footwear')">
+                        <i class="bi bi-bag"></i> Footwear
+                    </div>
+                    <div class="category-item" data-category="outerwear" onclick="filterProducts('outerwear')">
+                        <i class="bi bi-bag"></i> Outerwear
+                    </div>
+                    <div class="category-item" data-category="seasonal" onclick="filterProducts('seasonal')">
+                        <i class="bi bi-bag"></i> Seasonal
+                    </div>
+                    <div class="category-item" data-category="sale" onclick="filterProducts('sale')">
+                        <i class="bi bi-bag"></i> Sale Items
+                    </div>
+                </div>
+
+                <!-- Optional Filters -->
+                <div class="filter-section mt-3">
+                    <h6 class="filter-header">Filter</h6>
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <input type="checkbox" class="form-check-input" /> Men
+                        </label>
+                        <label class="filter-label">
+                            <input type="checkbox" class="form-check-input" /> Women
+                        </label>
+                        <label class="filter-label">
+                            <input type="checkbox" class="form-check-input" /> Unisex
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Sidebar Footer -->
+                <div class="categories-footer">
+                    <hr>
+                    <button class="btn btn-sm btn-outline-secondary w-100 mb-2" data-bs-toggle="modal"
+                        data-bs-target="#categoriesModal">
+                        <i class="bi bi-sliders"></i> Manage
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary w-100" id="darkModeToggle"
+                        onclick="toggleDarkMode()">
+                        <i class="bi bi-moon"></i> Dark
+                    </button>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
