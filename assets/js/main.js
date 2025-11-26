@@ -151,3 +151,17 @@ function initializeApp() {
     populateCustomerSelect();
     showStatusMessage('System ready', 3000);
 }
+
+function setupEventListeners() {
+    document.getElementById('toggleSidebar').addEventListener('click', toggleSidebar);
+}
+
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar-categories')
+    const content = document.querySelector('.main-content')
+    const icon = document.querySelector('#toggleSidebar i')
+
+    sidebar.classList.toggle('.collapsed')
+    content.classList.toggle('.expanded')
+    icon.classList.toggle('rotate')
+}
