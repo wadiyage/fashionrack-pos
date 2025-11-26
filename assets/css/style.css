@@ -118,3 +118,29 @@ body {
     background-color: #4C1D95;
     color: #fff;
 }
+
+.sidebar-categories.collapsed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.sidebar-categories {
+    width: 250px; /* default sidebar width */
+    transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.main-content {
+    transition: margin-left 0.3s ease;
+    margin-left: 250px;
+}
+
+.main-content .expanded {
+    margin-left: 0;
+}
+
+#toggleSidebar i .rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
