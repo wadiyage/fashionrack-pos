@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <div class="px-3 py-2 border-bottom mb-3">
+        <div class="px-3 py-2 border-bottom bg-light mb-3">
             <div class="container-fluid d-flex flex-wrap justify-content-center">
                 <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
                     <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
@@ -106,88 +106,135 @@
             </div>
         </div>
     </header>
-    <main>
-        <section>
-            <div class="sidebar-categories bg-light">
-                <div class="categories-header">
-                    <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-tag"></i> Categories</h6>
-                    <button class="btn btn-sm btn-link" id="toggleSidebar" title="Toggle Sidebar">
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
-                </div>
+    <main class="main-container">
+        <div class="container-fluid h-100">
+            <div class="row h-100 g-0">
+                <section class="sidebar-categories bg-light">
+                    <div class="categories-header">
+                        <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-tag"></i> Categories</h6>
+                        <button class="btn btn-sm btn-link" id="toggleSidebar" title="Toggle Sidebar">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                    </div>
 
-                <div class="categories-list">
-                    <div class="category-item active" data-category="all" onclick="filterProducts('all')">
-                        <i class="bi bi-grid"></i>
-                        All Products
+                    <div class="categories-list">
+                        <div class="category-item active" data-category="all" onclick="filterProducts('all')">
+                            <i class="bi bi-grid"></i>
+                            All Products
+                        </div>
+                        <div class="category-item" data-category="shirts" onclick="filterProducts('shirts')">
+                            <i class="bi bi-bag"></i>
+                            Shirts
+                        </div>
+                        <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
+                            <i class="bi bi-bag"></i>
+                            Pants
+                        </div>
+                        <div class="category-item" data-category="dresses" onclick="filterProducts('dresses')">
+                            <i class="bi bi-bag"></i>
+                            Dresses
+                        </div>
+                        <div class="category-item" data-category="accessories" onclick="filterProducts('accessories')">
+                            <i class="bi bi-bag"></i>
+                            Accessories
+                        </div>
+                        <div class="category-item" data-category="footwear" onclick="filterProducts('footwear')">
+                            <i class="bi bi-bag"></i>
+                            Footwear
+                        </div>
+                        <div class="category-item" data-category="outerwear" onclick="filterProducts('outerwear')">
+                            <i class="bi bi-bag"></i>
+                            Outerwear
+                        </div>
+                        <div class="category-item" data-category="seasonal" onclick="filterProducts('seasonal')">
+                            <i class="bi bi-bag"></i>
+                            Seasonal
+                        </div>
+                        <div class="category-item" data-category="sale" onclick="filterProducts('sale')">
+                            <i class="bi bi-bag"></i>
+                            Sale Items
+                        </div>
                     </div>
-                    <div class="category-item" data-category="shirts" onclick="filterProducts('shirts')">
-                        <i class="bi bi-bag"></i>
-                        Shirts
-                    </div>
-                    <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
-                        <i class="bi bi-bag"></i>
-                        Pants
-                    </div>
-                    <div class="category-item" data-category="dresses" onclick="filterProducts('dresses')">
-                        <i class="bi bi-bag"></i>
-                        Dresses
-                    </div>
-                    <div class="category-item" data-category="accessories" onclick="filterProducts('accessories')">
-                        <i class="bi bi-bag"></i>
-                        Accessories
-                    </div>
-                    <div class="category-item" data-category="footwear" onclick="filterProducts('footwear')">
-                        <i class="bi bi-bag"></i>
-                        Footwear
-                    </div>
-                    <div class="category-item" data-category="outerwear" onclick="filterProducts('outerwear')">
-                        <i class="bi bi-bag"></i>
-                        Outerwear
-                    </div>
-                    <div class="category-item" data-category="seasonal" onclick="filterProducts('seasonal')">
-                        <i class="bi bi-bag"></i>
-                        Seasonal
-                    </div>
-                    <div class="category-item" data-category="sale" onclick="filterProducts('sale')">
-                        <i class="bi bi-bag"></i>
-                        Sale Items
-                    </div>
-                </div>
 
-                <div class="filter-section mt-3">
-                    <h6 class="filter-header">Filter</h6>
-                    <div class="filter-group">
-                        <label class="filter-label">
-                            <input type="checkbox" class="form-check-input" />
-                            Men
-                        </label>
-                        <label class="filter-label">
-                            <input type="checkbox" class="form-check-input" />
-                            Women
-                        </label>
-                        <label class="filter-label">
-                            <input type="checkbox" class="form-check-input" />
-                            Unisex
-                        </label>
+                    <div class="filter-section mt-3">
+                        <h6 class="filter-header">Filter</h6>
+                        <div class="filter-group">
+                            <label class="filter-label">
+                                <input type="checkbox" class="form-check-input" />
+                                Men
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="form-check-input" />
+                                Women
+                            </label>
+                            <label class="filter-label">
+                                <input type="checkbox" class="form-check-input" />
+                                Unisex
+                            </label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="categories-footer">
-                    <hr>
-                    <button class="btn btn-sm btn-outline-secondary w-100 mb-2" data-bs-toggle="modal"
-                        data-bs-target="#categoriesModal">
-                        <i class="bi bi-sliders"></i>
-                        Manage
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary w-100" id="darkModeToggle"
-                        onclick="toggleDarkMode()">
-                        <i class="bi bi-moon"></i>
-                        Dark
-                    </button>
-                </div>
+                    <div class="categories-footer">
+                        <hr>
+                        <button class="btn btn-sm btn-outline-secondary w-100 mb-2" data-bs-toggle="modal"
+                            data-bs-target="#categoriesModal">
+                            <i class="bi bi-sliders"></i>
+                            Manage
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary w-100" id="darkModeToggle"
+                            onclick="toggleDarkMode()">
+                            <i class="bi bi-moon"></i>
+                            Dark
+                        </button>
+                    </div>
+                </section>
+                <section class="col-lg-7 col-md-6 products-section">
+                    <div class="products-header">
+                        <h5 id="sectionTitle" class="fs-4 fw-semibold text-uppercase">Products</h5>
+                        <span class="badge bg-secondary" id="productCount">0</span>
+                    </div>
+
+                    <div class="products-toolbar">
+                        <div class="input-group search-group">
+                            <span class="input-group-text bg-white border-start-1">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" id="searchInput"
+                                placeholder="Search products...">
+                        </div>
+
+                        <div class="toolbar-actions">
+                            <select class="form-select form-select" id="sortDropdown">
+                                <option value="name">Sort by Name</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="newest">Newest First</option>
+                            </select>
+
+                            <button class="btn btn-outline-secondary" id="gridToggle"
+                                title="Toggle Grid/List View">
+                                <i class="bi bi-grid-3x2-gap"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" id="productsContainer">
+                    </div>
+
+                    <div class="empty-state d-none" id="emptyState">
+                        <i class="bi bi-inbox"></i>
+                        <p>No items found</p>
+                    </div>
+
+                    <div class="loading-state d-none" id="loadingState">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p>Loading products...</p>
+                    </div>
+                </section>
             </div>
-        </section>
+        </div>
     </main>
     <footer>
 
