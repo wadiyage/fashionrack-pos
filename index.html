@@ -109,30 +109,33 @@
     <main class="main-container">
         <div class="container-fluid h-100">
             <div class="row h-100 g-0">
-                <section class="sidebar-categories bg-light">
+                <section class="sidebar-categories col-12 col-md-3 col-lg-2 bg-light">
                     <div class="categories-header">
                         <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-tag"></i> Categories</h6>
                         <button class="btn btn-sm btn-link" id="toggleSidebar" title="Toggle Sidebar">
                             <i class="bi bi-chevron-left"></i>
                         </button>
                     </div>
-
                     <div class="categories-list">
                         <div class="category-item active" data-category="all" onclick="filterProducts('all')">
                             <i class="bi bi-grid"></i>
                             All Products
                         </div>
+                        <div class="category-item" data-category="tops" onclick="filterProducts('tops')">
+                            <i class="bi bi-bag"></i>
+                            Tops
+                        </div>
                         <div class="category-item" data-category="shirts" onclick="filterProducts('shirts')">
                             <i class="bi bi-bag"></i>
                             Shirts
                         </div>
-                        <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
-                            <i class="bi bi-bag"></i>
-                            Pants
-                        </div>
                         <div class="category-item" data-category="dresses" onclick="filterProducts('dresses')">
                             <i class="bi bi-bag"></i>
                             Dresses
+                        </div>
+                        <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
+                            <i class="bi bi-bag"></i>
+                            Pants
                         </div>
                         <div class="category-item" data-category="accessories" onclick="filterProducts('accessories')">
                             <i class="bi bi-bag"></i>
@@ -155,25 +158,23 @@
                             Sale Items
                         </div>
                     </div>
-
                     <div class="filter-section mt-3">
                         <h6 class="filter-header">Filter</h6>
                         <div class="filter-group">
                             <label class="filter-label">
-                                <input type="checkbox" class="form-check-input" />
+                                <input type="checkbox" class="form-check-input gender-filter" data-gender="men" />
                                 Men
                             </label>
                             <label class="filter-label">
-                                <input type="checkbox" class="form-check-input" />
+                                <input type="checkbox" class="form-check-input gender-filter" data-gender="women" />
                                 Women
                             </label>
                             <label class="filter-label">
-                                <input type="checkbox" class="form-check-input" />
+                                <input type="checkbox" class="form-check-input gender-filter" data-gender="unisex" />
                                 Unisex
                             </label>
                         </div>
                     </div>
-
                     <div class="categories-footer">
                         <hr>
                         <button class="btn btn-sm btn-outline-secondary w-100 mb-2" data-bs-toggle="modal"
@@ -188,16 +189,15 @@
                         </button>
                     </div>
                 </section>
-                <section class="col-lg-7 col-md-6 products-section">
+                <section class="products-section col-12 col-md-6 col-lg-7">
                     <div class="products-header">
                         <h5 id="sectionTitle" class="fs-4 fw-semibold text-uppercase">Products</h5>
                         <span class="badge bg-secondary" id="productCount">0</span>
                     </div>
-
                     <div class="products-toolbar">
                         <div class="input-group search-group">
                             <span class="input-group-text bg-white border-start-1">
-                                <i class="bi bi-search"></i>
+                                <i class="bi bi-search"></i>    
                             </span>
                             <input type="text" class="form-control border-start-0" id="searchInput"
                                 placeholder="Search products...">
@@ -211,21 +211,17 @@
                                 <option value="newest">Newest First</option>
                             </select>
 
-                            <button class="btn btn-outline-secondary" id="gridToggle"
-                                title="Toggle Grid/List View">
+                            <button class="btn btn-outline-secondary" id="gridToggle" title="Toggle Grid/List View">
                                 <i class="bi bi-grid-3x2-gap"></i>
                             </button>
                         </div>
                     </div>
-
                     <div class="products-grid" id="productsContainer">
                     </div>
-
                     <div class="empty-state d-none" id="emptyState">
                         <i class="bi bi-inbox"></i>
                         <p>No items found</p>
                     </div>
-
                     <div class="loading-state d-none" id="loadingState">
                         <div class="spinner-border text-primary" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -233,9 +229,394 @@
                         <p>Loading products...</p>
                     </div>
                 </section>
+                <section class="sidebar-cart col-12 col-md-3 col-lg-3 bg-light">
+                    <div class="cart-header">
+                        <h6 class="mb-0"><i class="bi bi-cart"></i> Cart</h6>
+                        <span class="badge bg-danger rounded-pill" id="cartCount">0</span>
+                    </div>
+                    <div class="cart-items-scroll" id="cartItems">
+                        <div class="empty-cart text-center py-5">
+                            <i class="bi bi-cart-x"></i>
+                            <p class="text-muted">Your cart is empty</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="discount-section mt-2">
+                            <button class="btn btn-sm btn-link p-0 w-100 text-start" data-bs-toggle="collapse"
+                                data-bs-target="#discountPanel">
+                                <i class="bi bi-percent"></i> Discount
+                            </button>
+                            <div class="collapse" id="discountPanel">
+                                <div class="discount-input mt-2 mb-2">
+                                    <input type="number" class="form-control form-control-sm" id="discountAmount"
+                                        placeholder="Amount" min="0">
+                                    <select class="form-select form-select-sm mt-1" id="discountType">
+                                        <option value="fixed">Fixed Amount</option>
+                                        <option value="percent">Percentage</option>
+                                    </select>
+                                    <button class="btn btn-sm btn-primary mt-1 w-100"
+                                        onclick="applyDiscount()">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax (10%)</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Service Charge</span>
+                            <span id="serviceCharge">$0.00</span>
+                        </div>
+                        <hr>
+                        <div class="summary-row summary-total">
+                            <span>Total</span>
+                            <span id="totalAmount">$0.00</span>
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-label">Customer</label>
+                            <select class="form-select form-select-sm" id="customerSelect">
+                                <option value="">Walk-in Customer</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success btn-lg w-100 mt-3" id="checkoutBtn" data-bs-toggle="modal"
+                            data-bs-target="#checkoutModal" disabled>
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
+
+    <!-- Checkout Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <div>
+                        <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                        <small class="text-light">Order #<span id="orderNumber">00001</span></small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Order Summary -->
+                    <div class="order-summary mb-4">
+                        <h6 class="text-muted mb-2">Order Summary</h6>
+                        <div class="summary-item">
+                            <span>Items:</span>
+                            <span id="checkoutItems">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Subtotal:</span>
+                            <span id="checkoutSubtotal">$0.00</span>
+                        </div>
+                        <div class="summary-item" id="checkoutDiscountRow" style="display:none;">
+                            <span>Discount:</span>
+                            <span id="checkoutDiscount">-$0.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Tax:</span>
+                            <span id="checkoutTax">$0.00</span>
+                        </div>
+                        <div class="summary-item fw-bold fs-5">
+                            <span>Grand Total:</span>
+                            <span id="checkoutTotal">$0.00</span>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Payment Options -->
+                    <h6 class="mb-3">Select Payment Method</h6>
+                    <div class="payment-options mb-4">
+                        <button class="btn btn-outline-primary payment-btn" id="cashPaymentBtn"
+                            onclick="selectPaymentMethod('cash')">
+                            <i class="bi bi-cash-coin"></i> Cash
+                        </button>
+                        <button class="btn btn-outline-primary payment-btn" id="cardPaymentBtn"
+                            onclick="selectPaymentMethod('card')">
+                            <i class="bi bi-credit-card"></i> Card
+                        </button>
+                        <button class="btn btn-outline-primary payment-btn" id="qrPaymentBtn"
+                            onclick="selectPaymentMethod('qr')">
+                            <i class="bi bi-qr-code"></i> QR/Digital
+                        </button>
+                        <button class="btn btn-outline-primary payment-btn" id="giftPaymentBtn"
+                            onclick="selectPaymentMethod('gift')">
+                            <i class="bi bi-gift"></i> Gift Card
+                        </button>
+                    </div>
+
+                    <!-- Payment Panels -->
+
+                    <!-- Cash Panel -->
+                    <div class="payment-panel d-none" id="cashPanel">
+                        <div class="mb-3">
+                            <label class="form-label">Amount Received</label>
+                            <input type="number" class="form-control form-control-lg" id="amountReceived"
+                                placeholder="0.00" min="0" step="0.01">
+                        </div>
+                        <div class="btn-group w-100 mb-3" role="group">
+                            <button type="button" class="btn btn-outline-secondary"
+                                onclick="setQuickAmount(50)">+$50</button>
+                            <button type="button" class="btn btn-outline-secondary"
+                                onclick="setQuickAmount(100)">+$100</button>
+                            <button type="button" class="btn btn-outline-secondary"
+                                onclick="setQuickAmount(200)">+$200</button>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Change Due:</strong> <span id="changeDue">$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Panel -->
+                    <div class="payment-panel d-none" id="cardPanel">
+                        <div class="alert alert-warning mb-3">
+                            <i class="bi bi-info-circle"></i> Please insert, tap, or swipe card...
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reference ID (Optional)</label>
+                            <input type="text" class="form-control" id="cardRefId"
+                                placeholder="Enter card reference or transaction ID">
+                        </div>
+                    </div>
+
+                    <!-- QR/Digital Wallet Panel -->
+                    <div class="payment-panel d-none" id="qrPanel">
+                        <div class="qr-preview text-center mb-3">
+                            <div class="qr-placeholder">
+                                <i class="bi bi-qr-code"></i>
+                                <p class="text-muted">QR Code Preview</p>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <i class="bi bi-hourglass-split"></i> Awaiting payment confirmation...
+                        </div>
+                    </div>
+
+                    <!-- Gift Card Panel -->
+                    <div class="payment-panel d-none" id="giftPanel">
+                        <div class="mb-3">
+                            <label class="form-label">Gift Card Number</label>
+                            <input type="text" class="form-control" id="giftCardNumber"
+                                placeholder="Enter gift card number">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">PIN (if required)</label>
+                            <input type="password" class="form-control" id="giftCardPin" placeholder="Enter PIN">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success btn-lg" id="completeSaleBtn" onclick="completeSale()"
+                        disabled>
+                        Complete Sale
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm">
+                        <div class="mb-3">
+                            <label class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="shirts">Shirts</option>
+                                <option value="pants">Pants</option>
+                                <option value="dresses">Dresses</option>
+                                <option value="accessories">Accessories</option>
+                                <option value="footwear">Footwear</option>
+                                <option value="outerwear">Outerwear</option>
+                                <option value="seasonal">Seasonal</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Price</label>
+                                <input type="number" class="form-control" id="productPrice" step="0.01" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Stock</label>
+                                <input type="number" class="form-control" id="productStock" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">SKU</label>
+                            <input type="text" class="form-control" id="productSku">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Customer Modal -->
+    <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="customerModalLabel">Add Customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="customerForm">
+                        <div class="mb-3">
+                            <label class="form-label">Customer Name</label>
+                            <input type="text" class="form-control" id="customerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="customerPhone">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="customerEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" id="customerAddress" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveCustomer()">Save Customer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="receiptModalLabel">Order Receipt</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="receiptContent">
+                    <!-- Receipt content will be generated here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" onclick="printReceipt()">
+                        <i class="bi bi-printer"></i> Print
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="emailReceipt()">
+                        <i class="bi bi-envelope"></i> Email
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tax Rate (%)</label>
+                        <input type="number" class="form-control" id="taxRate" value="10" min="0" max="100" step="0.1">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Service Charge (%)</label>
+                        <input type="number" class="form-control" id="serviceChargeRate" value="0" min="0" max="100"
+                            step="0.1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">Help & Support</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>FashionRack POS System</h6>
+                    <p class="text-muted">Version 1.0.0</p>
+
+                    <h6 class="mt-4">Quick Tips</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Search:</strong> Use the search field to find products quickly</li>
+                        <li><strong>Filter:</strong> Click on categories to filter products</li>
+                        <li><strong>Cart:</strong> Add items and adjust quantities in the cart panel</li>
+                        <li><strong>Checkout:</strong> Click "Proceed to Checkout" to complete a sale</li>
+                        <li><strong>Payment:</strong> Select your preferred payment method</li>
+                    </ul>
+
+                    <h6 class="mt-4">Contact Support</h6>
+                    <p class="text-muted">Email: support@fashionrack.com<br>Phone: +1 (555) 123-4567</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories Manage Modal -->
+    <div class="modal fade" id="categoriesModal" tabindex="-1" aria-labelledby="categoriesModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoriesModalLabel">Manage Categories</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">Category management features coming soon...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer>
 
     </footer>
@@ -248,7 +629,7 @@
     <!-- Bootstrap JS -->
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS (Module System) -->
-    <script type="module" src="assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 
 </html>
