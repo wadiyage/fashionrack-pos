@@ -1,8 +1,15 @@
-let cart = [];
-let products = [];
-let customers = [];
-let currentCategory = 'all';
+let cart = []
+let products = []
+let customers = []
+
+let currentCategory = 'all'
+
 let searchTimeout; // Used for search debounce
+
+let userToggledSidebar = false
+let userToggledCartSidebar = false
+let lastWidth = window.innerWidth
+
 let selectedPaymentMethod = null;
 let discountApplied = 0;
 let discountType = 'fixed';
@@ -156,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
 });
 
+
 function initializeApp() {
     products = JSON.parse(JSON.stringify(sampleProducts));
     customers = JSON.parse(JSON.stringify(sampleCustomers));
@@ -167,40 +175,66 @@ function initializeApp() {
 }
 
 function setupEventListeners() {
+    const toggleSidebarBtn = document.getElementById('toggleSidebar')
+    if (toggleSidebarBtn) toggleSidebarBtn.addEventListener('click', toggleSidebar);
+
     document.querySelectorAll('.gender-filter').forEach(checkbox => {
-        checkbox.addEventListener('change', filterAndDisplayProducts);
+        checkbox.addEventListener('change', filterAndDisplayProducts)
     });
 
-    const searchInput = document.getElementById('searchInput');
+    const searchInput = document.getElementById('searchInput')
     if (searchInput) {
         searchInput.addEventListener('input', () => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(filterAndDisplayProducts, 300); // Delay search to prevent excessive filtering
+            clearTimeout(searchTimeout)
+            searchTimeout = setTimeout(filterAndDisplayProducts, 300) // Delay search to prevent excessive filtering
+        })
+    }
+
+    const sortDropdown = document.getElementById('sortDropdown')
+    if (sortDropdown) sortDropdown.addEventListener('change', filterAndDisplayProducts)
+
+    const gridToggle = document.getElementById('gridToggle')
+    if (gridToggle) gridToggle.addEventListener('click', toggleGridView)
+
+    const toggleCartBtn = document.getElementById('toggleCartSidebarBtn')
+    if (toggleCartBtn) toggleCartBtn.addEventListener('click', toggleCartSidebar)
+
+    const cartOverlay = document.getElementById('cartOverlay');
+    if (cartOverlay) {
+        cartOverlay.addEventListener('click', () => {
+            const cartSidebar = document.querySelector('.sidebar-cart');
+            const productsSection = document.querySelector('.products-section');
+            const toggleBtn = document.getElementById('toggleCartSidebarBtn');
+
+            cartSidebar.classList.remove('open');
+            productsSection.classList.remove('shrinked');
+            toggleBtn.classList.remove('active');
+            cartOverlay.classList.remove('active');
+
+            userToggledCartSidebar = false; // Reset user toggle state
         });
     }
 
-    const sortDropdown = document.getElementById('sortDropdown');
-    if (sortDropdown) sortDropdown.addEventListener('change', filterAndDisplayProducts);
-
-    const gridToggle = document.getElementById('gridToggle');
-    if (gridToggle) gridToggle.addEventListener('click', toggleGridView);
-
-    const toggleSidebarBtn = document.getElementById('toggleSidebar');
-    if (toggleSidebarBtn) toggleSidebarBtn.addEventListener('click', toggleSidebar);
-
     const amountReceived = document.getElementById('amountReceived');
-    if (amountReceived) amountReceived.addEventListener('input', calculateChange);
+    if (amountReceived) amountReceived.addEventListener('input', calculateChange)
 
     document.querySelectorAll('.payment-btn').forEach(btn => {
         btn.addEventListener('click', function () {
-            const method = this.id.replace('PaymentBtn', '');
-            selectPaymentMethod(method);
-        });
-    });
+            const method = this.id.replace('PaymentBtn', '')
+            selectPaymentMethod(method)
+        })
+    })
+
+
+    window.addEventListener('resize', handleResponsiveSidebar)
+    handleResponsiveSidebar()
+
+    window.addEventListener('resize', handleResponsiveCartSidebar)
+    handleResponsiveCartSidebar()
 }
 
 function loadProducts() {
-    filterAndDisplayProducts();
+    filterAndDisplayProducts()
 }
 
 function filterAndDisplayProducts() {
@@ -393,6 +427,11 @@ function updateCart() {
 function updateCartDisplay() {
     const cartContainer = document.getElementById('cartItems');
     const cartCount = document.getElementById('cartCount');
+    const cartSidebarBadge = document.getElementById('cartSidebarBadge')
+
+    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0)
+    cartCount.textContent = totalQty
+    if (cartSidebarBadge) cartSidebarBadge.textContent = totalQty
 
     if (cart.length === 0) {
         cartContainer.innerHTML = `
@@ -400,18 +439,16 @@ function updateCartDisplay() {
                 <i class="bi bi-cart-x"></i>
                 <p class="text-muted">Your cart is empty</p>
             </div>
-        `;
-        cartCount.textContent = '0';
-        document.getElementById('checkoutBtn').disabled = true;
-        return;
+        `
+        document.getElementById('checkoutBtn').disabled = true
+        return
     }
 
-    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById('checkoutBtn').disabled = false;
+    document.getElementById('checkoutBtn').disabled = false
 
     cartContainer.innerHTML = cart.map(item => `
         <div class="cart-item">
-            <div class="cart-item-image">${item.image}</div>
+            <div class="cart-item-image"><img src="${item.image}" alt="${item.name}" /></div>
             <div class="cart-item-details">
                 <div class="cart-item-name">${item.name}</div>
                 <div class="cart-item-variant">SKU: ${item.sku}</div>
@@ -427,7 +464,7 @@ function updateCartDisplay() {
                 </div>
             </div>
         </div>
-    `).join('');
+    `).join('')
 }
 
 function updateCartTotals() {
@@ -747,8 +784,90 @@ function toggleGridView() {
 }
 
 function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar-categories');
-    sidebar.classList.toggle('show');
+    const sidebar = document.querySelector('.sidebar-categories')
+    const toggleBtn = document.getElementById('toggleSidebar')
+    const productsSection = document.querySelector('.products-section')
+
+    const isCollapsed = sidebar.classList.toggle('collapsed')
+
+    if (isCollapsed) {
+        toggleBtn.classList.add('collapsed')
+        productsSection.classList.add('expanded')
+    }
+    else {
+        toggleBtn.classList.remove('collapsed')
+        productsSection.classList.remove('expanded')
+    }
+
+
+    userToggledSidebar = true
+}
+
+function handleResponsiveSidebar() {
+    const sidebar = document.querySelector('.sidebar-categories')
+    const toggleBtn = document.getElementById('toggleSidebar')
+    const productsSection = document.querySelector('.products-section')
+    const width = window.innerWidth
+
+    console.log("Responsive handler triggered, width:", width);
+    if ((lastWidth >= 992 && width < 992) || (lastWidth < 992 && width >= 992)) userToggledSidebar = false
+
+    lastWidth = width;
+
+    if (userToggledSidebar) return
+
+    if (width < 992) {
+        sidebar.classList.add('collapsed')
+        toggleBtn.classList.add('collapsed')
+
+        productsSection.classList.add('expanded')
+    } else {
+        sidebar.classList.remove('collapsed')
+        toggleBtn.classList.remove('collapsed')
+
+        productsSection.classList.remove('expanded')
+    }
+}
+
+function toggleCartSidebar() {
+    const cartSidebar = document.querySelector('.sidebar-cart');
+    const productsSection = document.querySelector('.products-section');
+    const toggleBtn = document.getElementById('toggleCartSidebarBtn');
+    const cartOverlay = document.getElementById('cartOverlay');
+
+    const isOpen = cartSidebar.classList.toggle('open');
+
+    if (isOpen) {
+        toggleBtn.classList.add('active');
+        productsSection.classList.add('shrinked');
+
+        if (window.innerWidth < 992) {
+            cartOverlay.classList.add('active')
+        }
+    } else {
+        toggleBtn.classList.remove('active');
+        productsSection.classList.remove('shrinked')
+
+        cartOverlay.classList.remove('active')
+    }
+
+    userToggledCartSidebar = true
+}
+
+function handleResponsiveCartSidebar() {
+    const cartSidebar = document.querySelector('.sidebar-cart');
+    const productsSection = document.querySelector('.products-section');
+    const width = window.innerWidth;
+
+    if (!userToggledCartSidebar) {
+        if (width < 992) {
+            cartSidebar.classList.remove('open');
+            productsSection.classList.remove('shrinked');
+        } else {
+            cartSidebar.classList.add('open');
+            productsSection.classList.add('shrinked');
+        }
+    }
 }
 
 function toggleDarkMode() {
@@ -758,17 +877,17 @@ function toggleDarkMode() {
 
 function logoutUser() {
     if (confirm('Are you sure you want to logout?')) {
-        showStatusMessage('Logged out', 2000);
+        showStatusMessage('Logged out', 2000)
         // In a real app, this would redirect to login page
     }
 }
 
 function showStatusMessage(message, duration = 3000) {
-    const statusEl = document.getElementById('statusMessage');
-    statusEl.textContent = message;
+    const statusEl = document.getElementById('statusMessage')
+    statusEl.textContent = message
     setTimeout(() => {
-        statusEl.textContent = '';
-    }, duration);
+        statusEl.textContent = ''
+    }, duration)
 }
 
 window.addEventListener('load', () => {

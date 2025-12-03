@@ -106,189 +106,196 @@
             </div>
         </div>
     </header>
-    <main class="main-container">
+    <main>
         <div class="container-fluid h-100">
             <div class="row h-100 g-0">
-                <section class="sidebar-categories col-12 col-md-3 col-lg-2 bg-light">
-                    <div class="categories-header">
-                        <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-tag"></i> Categories</h6>
-                        <button class="btn btn-sm btn-link" id="toggleSidebar" title="Toggle Sidebar">
-                            <i class="bi bi-chevron-left"></i>
-                        </button>
-                    </div>
-                    <div class="categories-list">
-                        <div class="category-item active" data-category="all" onclick="filterProducts('all')">
-                            <i class="bi bi-grid"></i>
-                            All Products
-                        </div>
-                        <div class="category-item" data-category="tops" onclick="filterProducts('tops')">
-                            <i class="bi bi-bag"></i>
-                            Tops
-                        </div>
-                        <div class="category-item" data-category="shirts" onclick="filterProducts('shirts')">
-                            <i class="bi bi-bag"></i>
-                            Shirts
-                        </div>
-                        <div class="category-item" data-category="dresses" onclick="filterProducts('dresses')">
-                            <i class="bi bi-bag"></i>
-                            Dresses
-                        </div>
-                        <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
-                            <i class="bi bi-bag"></i>
-                            Pants
-                        </div>
-                        <div class="category-item" data-category="accessories" onclick="filterProducts('accessories')">
-                            <i class="bi bi-bag"></i>
-                            Accessories
-                        </div>
-                        <div class="category-item" data-category="footwear" onclick="filterProducts('footwear')">
-                            <i class="bi bi-bag"></i>
-                            Footwear
-                        </div>
-                        <div class="category-item" data-category="outerwear" onclick="filterProducts('outerwear')">
-                            <i class="bi bi-bag"></i>
-                            Outerwear
-                        </div>
-                        <div class="category-item" data-category="seasonal" onclick="filterProducts('seasonal')">
-                            <i class="bi bi-bag"></i>
-                            Seasonal
-                        </div>
-                        <div class="category-item" data-category="sale" onclick="filterProducts('sale')">
-                            <i class="bi bi-bag"></i>
-                            Sale Items
-                        </div>
-                    </div>
-                    <div class="filter-section mt-3">
-                        <h6 class="filter-header">Filter</h6>
-                        <div class="filter-group">
-                            <label class="filter-label">
-                                <input type="checkbox" class="form-check-input gender-filter" data-gender="men" />
-                                Men
-                            </label>
-                            <label class="filter-label">
-                                <input type="checkbox" class="form-check-input gender-filter" data-gender="women" />
-                                Women
-                            </label>
-                            <label class="filter-label">
-                                <input type="checkbox" class="form-check-input gender-filter" data-gender="unisex" />
-                                Unisex
-                            </label>
-                        </div>
-                    </div>
-                    <div class="categories-footer">
-                        <hr>
-                        <button class="btn btn-sm btn-outline-secondary w-100 mb-2" data-bs-toggle="modal"
-                            data-bs-target="#categoriesModal">
-                            <i class="bi bi-sliders"></i>
-                            Manage
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary w-100" id="darkModeToggle"
-                            onclick="toggleDarkMode()">
-                            <i class="bi bi-moon"></i>
-                            Dark
-                        </button>
-                    </div>
-                </section>
-                <section class="products-section col-12 col-md-6 col-lg-7">
-                    <div class="products-header">
-                        <h5 id="sectionTitle" class="fs-4 fw-semibold text-uppercase">Products</h5>
-                        <span class="badge bg-secondary" id="productCount">0</span>
-                    </div>
-                    <div class="products-toolbar">
-                        <div class="input-group search-group">
-                            <span class="input-group-text bg-white border-start-1">
-                                <i class="bi bi-search"></i>    
-                            </span>
-                            <input type="text" class="form-control border-start-0" id="searchInput"
-                                placeholder="Search products...">
-                        </div>
-
-                        <div class="toolbar-actions">
-                            <select class="form-select form-select" id="sortDropdown">
-                                <option value="name">Sort by Name</option>
-                                <option value="price-low">Price: Low to High</option>
-                                <option value="price-high">Price: High to Low</option>
-                                <option value="newest">Newest First</option>
-                            </select>
-
-                            <button class="btn btn-outline-secondary" id="gridToggle" title="Toggle Grid/List View">
-                                <i class="bi bi-grid-3x2-gap"></i>
+                <div class="main-container">
+                    <section class="sidebar-categories bg-light">
+                        <div class="categories-header">
+                            <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-tag"></i> Categories</h6>
+                            <button class="btn btn-sm btn-link" id="toggleSidebar">
+                                <i class="bi bi-chevron-left"></i>
                             </button>
                         </div>
-                    </div>
-                    <div class="products-grid" id="productsContainer">
-                    </div>
-                    <div class="empty-state d-none" id="emptyState">
-                        <i class="bi bi-inbox"></i>
-                        <p>No items found</p>
-                    </div>
-                    <div class="loading-state d-none" id="loadingState">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <p>Loading products...</p>
-                    </div>
-                </section>
-                <section class="sidebar-cart col-12 col-md-3 col-lg-3 bg-light">
-                    <div class="cart-header">
-                        <h6 class="mb-0"><i class="bi bi-cart"></i> Cart</h6>
-                        <span class="badge bg-danger rounded-pill" id="cartCount">0</span>
-                    </div>
-                    <div class="cart-items-scroll" id="cartItems">
-                        <div class="empty-cart text-center py-5">
-                            <i class="bi bi-cart-x"></i>
-                            <p class="text-muted">Your cart is empty</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="cart-summary">
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span id="subtotal">$0.00</span>
-                        </div>
-                        <div class="discount-section mt-2">
-                            <button class="btn btn-sm btn-link p-0 w-100 text-start" data-bs-toggle="collapse"
-                                data-bs-target="#discountPanel">
-                                <i class="bi bi-percent"></i> Discount
-                            </button>
-                            <div class="collapse" id="discountPanel">
-                                <div class="discount-input mt-2 mb-2">
-                                    <input type="number" class="form-control form-control-sm" id="discountAmount"
-                                        placeholder="Amount" min="0">
-                                    <select class="form-select form-select-sm mt-1" id="discountType">
-                                        <option value="fixed">Fixed Amount</option>
-                                        <option value="percent">Percentage</option>
-                                    </select>
-                                    <button class="btn btn-sm btn-primary mt-1 w-100"
-                                        onclick="applyDiscount()">Apply</button>
-                                </div>
+                        <div class="categories-list">
+                            <div class="category-item active" data-category="all" onclick="filterProducts('all')">
+                                <i class="bi bi-grid"></i>
+                                All Products
+                            </div>
+                            <div class="category-item" data-category="tops" onclick="filterProducts('tops')">
+                                <i class="bi bi-bag"></i>
+                                Tops
+                            </div>
+                            <div class="category-item" data-category="shirts" onclick="filterProducts('shirts')">
+                                <i class="bi bi-bag"></i>
+                                Shirts
+                            </div>
+                            <div class="category-item" data-category="dresses" onclick="filterProducts('dresses')">
+                                <i class="bi bi-bag"></i>
+                                Dresses
+                            </div>
+                            <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
+                                <i class="bi bi-bag"></i>
+                                Pants
+                            </div>
+                            <div class="category-item" data-category="accessories" onclick="filterProducts('accessories')">
+                                <i class="bi bi-bag"></i>
+                                Accessories
+                            </div>
+                            <div class="category-item" data-category="footwear" onclick="filterProducts('footwear')">
+                                <i class="bi bi-bag"></i>
+                                Footwear
+                            </div>
+                            <div class="category-item" data-category="outerwear" onclick="filterProducts('outerwear')">
+                                <i class="bi bi-bag"></i>
+                                Outerwear
+                            </div>
+                            <div class="category-item" data-category="seasonal" onclick="filterProducts('seasonal')">
+                                <i class="bi bi-bag"></i>
+                                Seasonal
+                            </div>
+                            <div class="category-item" data-category="sale" onclick="filterProducts('sale')">
+                                <i class="bi bi-bag"></i>
+                                Sale Items
                             </div>
                         </div>
-                        <div class="summary-row">
-                            <span>Tax (10%)</span>
-                            <span id="tax">$0.00</span>
+                        <div class="filter-section mt-3">
+                            <h6 class="filter-header">Filter</h6>
+                            <div class="filter-group">
+                                <label class="filter-label">
+                                    <input type="checkbox" class="form-check-input gender-filter" data-gender="men" />
+                                    Men
+                                </label>
+                                <label class="filter-label">
+                                    <input type="checkbox" class="form-check-input gender-filter" data-gender="women" />
+                                    Women
+                                </label>
+                                <label class="filter-label">
+                                    <input type="checkbox" class="form-check-input gender-filter" data-gender="unisex" />
+                                    Unisex
+                                </label>
+                            </div>
                         </div>
-                        <div class="summary-row">
-                            <span>Service Charge</span>
-                            <span id="serviceCharge">$0.00</span>
+                        <div class="categories-footer">
+                            <hr>
+                            <button class="btn btn-sm btn-outline-secondary w-100 mb-2" data-bs-toggle="modal"
+                                data-bs-target="#categoriesModal">
+                                <i class="bi bi-sliders"></i>
+                                Manage
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary w-100" id="darkModeToggle"
+                                onclick="toggleDarkMode()">
+                                <i class="bi bi-moon"></i>
+                                Dark
+                            </button>
+                        </div>
+                    </section>
+                    <section class="products-section">
+                        <div class="products-header">
+                            <h5 id="sectionTitle" class="fs-4 fw-semibold text-uppercase">Products</h5>
+                            <span class="badge bg-secondary" id="productCount">0</span>
+                        </div>
+                        <div class="products-toolbar">
+                            <div class="input-group search-group">
+                                <span class="input-group-text bg-white border-start-1">
+                                    <i class="bi bi-search"></i>
+                                </span>
+                                <input type="text" class="form-control border-start-0" id="searchInput"
+                                    placeholder="Search products...">
+                            </div>
+    
+                            <div class="toolbar-actions">
+                                <select class="form-select form-select" id="sortDropdown">
+                                    <option value="name">Sort by Name</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="newest">Newest First</option>
+                                </select>
+    
+                                <button class="btn btn-outline-secondary" id="gridToggle" title="Toggle Grid/List View">
+                                    <i class="bi bi-grid-3x2-gap"></i>
+                                </button>
+    
+                                <button class="btn btn-outline-primary" id="toggleCartSidebarBtn">
+                                    <i class="bi bi-cart"></i>
+                                    <span id="cartSidebarBadge" class="badge bg-danger">0</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="products-grid" id="productsContainer">
+                        </div>
+                        <div class="empty-state d-none" id="emptyState">
+                            <i class="bi bi-inbox"></i>
+                            <p>No items found</p>
+                        </div>
+                        <div class="loading-state d-none" id="loadingState">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p>Loading products...</p>
+                        </div>
+                    </section>
+                    <section class="sidebar-cart bg-light">
+                        <div class="cart-header">
+                            <h6 class="mb-0"><i class="bi bi-cart"></i> Cart</h6>
+                            <span class="badge bg-danger rounded-pill" id="cartCount">0</span>
+                        </div>
+                        <div class="cart-items-scroll" id="cartItems">
+                            <div class="empty-cart text-center py-5">
+                                <i class="bi bi-cart-x"></i>
+                                <p class="text-muted">Your cart is empty</p>
+                            </div>
                         </div>
                         <hr>
-                        <div class="summary-row summary-total">
-                            <span>Total</span>
-                            <span id="totalAmount">$0.00</span>
+                        <div class="cart-summary">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div class="discount-section mt-2">
+                                <button class="btn btn-sm btn-link p-0 w-100 text-start" data-bs-toggle="collapse"
+                                    data-bs-target="#discountPanel">
+                                    <i class="bi bi-percent"></i> Discount
+                                </button>
+                                <div class="collapse" id="discountPanel">
+                                    <div class="discount-input mt-2 mb-2">
+                                        <input type="number" class="form-control form-control-sm" id="discountAmount"
+                                            placeholder="Amount" min="0">
+                                        <select class="form-select form-select-sm mt-1" id="discountType">
+                                            <option value="fixed">Fixed Amount</option>
+                                            <option value="percent">Percentage</option>
+                                        </select>
+                                        <button class="btn btn-sm btn-primary mt-1 w-100"
+                                            onclick="applyDiscount()">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax (10%)</span>
+                                <span id="tax">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Service Charge</span>
+                                <span id="serviceCharge">$0.00</span>
+                            </div>
+                            <hr>
+                            <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <span id="totalAmount">$0.00</span>
+                            </div>
+                            <div class="mt-3">
+                                <label class="form-label">Customer</label>
+                                <select class="form-select form-select-sm" id="customerSelect">
+                                    <option value="">Walk-in Customer</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-success btn-lg w-100 mt-3" id="checkoutBtn" data-bs-toggle="modal"
+                                data-bs-target="#checkoutModal" disabled>
+                                Proceed to Checkout
+                            </button>
                         </div>
-                        <div class="mt-3">
-                            <label class="form-label">Customer</label>
-                            <select class="form-select form-select-sm" id="customerSelect">
-                                <option value="">Walk-in Customer</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-success btn-lg w-100 mt-3" id="checkoutBtn" data-bs-toggle="modal"
-                            data-bs-target="#checkoutModal" disabled>
-                            Proceed to Checkout
-                        </button>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
         </div>
     </main>
@@ -617,10 +624,11 @@
             </div>
         </div>
     </div>
-    <footer>
-
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+        <p class="mb-0">&copy; 2024 FashionRack POS System v1.0.0 | All Rights Reserved</p>
+        <small id="statusMessage" class="text-muted"></small>
     </footer>
-
+    <div class="cart-overlay" id="cartOverlay"></div>
     <!-- Lucide Icon (CDN) -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script>
