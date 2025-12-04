@@ -17,7 +17,6 @@ body {
 .main-container {
     display: grid;
     grid-template-columns: 270px 1fr 320px;
-    /* left | middle | cart */
     width: 100%;
 }
 
@@ -25,6 +24,10 @@ body {
 .products-section,
 .sidebar-cart {
     min-height: calc(100vh - 150px);
+}
+
+.products-section .products-header #sectionTitle {
+    margin-top: 6px;
 }
 
 .sidebar-categories {
@@ -403,87 +406,81 @@ body {
 }
 
 .cart-item {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    gap: 10px;
-    transition: all 0.3s ease;
-}
-
-.cart-item:hover {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.cart-item-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 4px;
-    background-color: #e9ecef;
-    flex-shrink: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-image img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .cart-item-details {
     flex: 1;
-    display: flex;
-    flex-direction: column;
 }
 
 .cart-item-name {
     font-weight: 600;
-    font-size: 0.9rem;
-    color: #333;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 14px;
 }
 
 .cart-item-variant {
-    font-size: 0.75rem;
-    color: #999;
-    margin: 2px 0;
+    font-size: 12px;
+    color: #777;
 }
 
 .cart-item-price {
-    font-weight: 700;
-    color: #28a745;
-    font-size: 0.95rem;
+    font-weight: 500;
     margin-top: 3px;
 }
 
 .cart-item-unit-price {
     font-size: 0.75rem;
-    color: #999;
+    color: #777;
 }
 
 .cart-item-controls {
+    margin-top: 8px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-top: 5px;
+    gap: 5px;
 }
 
 .qty-btn {
-    background: #f0f0f0;
+    background: #e4e4e4;
     border: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 3px;
+    padding: 4px 8px;
+    font-size: 1rem;
+    border-radius: 4px;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
 }
 
 .qty-btn:hover {
-    background: #28a745;
-    color: #fff;
+    background: #d4d4d4;
+}
+
+.qty-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid #ccc;
+    background: #f8f8f8;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.qty-btn:hover {
+    background: #eaeaea;
 }
 
 .qty-display {
@@ -726,14 +723,11 @@ footer small {
         max-width: 100% !important;
         flex: none;
         overflow: hidden;
-        /* prevents shifting */
         transition: all 0.3s ease;
     }
 
     .products-section.shrinked {
-        /* reduce width to leave space for cart */
         max-width: calc(100% - 320px);
-        /* 320px = sidebar-cart width */
         transition: all 0.3s ease;
     }
 
@@ -749,7 +743,6 @@ footer small {
         transition: none;
     }
 
-    /* Desktop doesn't need slide animation */
     .sidebar-cart.open {
         right: 0 !important;
     }
@@ -766,7 +759,6 @@ footer small {
         padding-top: 200px;
     }
 
-    /* KEEP FLEX LAYOUT – DO NOT USE BLOCK */
     .main-container {
         display: flex;
         flex-direction: row;
@@ -774,7 +766,6 @@ footer small {
         height: 100%;
     }
 
-    /* Sidebar categories */
     .sidebar-categories {
         width: 240px;
         max-width: 240px;
@@ -783,7 +774,6 @@ footer small {
         padding: 10px 8px;
     }
 
-    /* When collapsed */
     .sidebar-categories.collapsed {
         width: 0;
         max-width: 0;
@@ -791,7 +781,6 @@ footer small {
         overflow: hidden;
     }
 
-    /* Products section ALWAYS stretches */
     .products-section {
         flex: 1;
         width: 100%;
@@ -799,14 +788,12 @@ footer small {
         transition: all 0.3s ease;
     }
 
-    /* When sidebar is collapsed → expand fully */
     .products-section.expanded {
         flex: 1 !important;
         width: 100% !important;
         max-width: 100% !important;
     }
 
-    /* Grid adjustments */
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 12px;
@@ -820,7 +807,6 @@ footer small {
         width: 100%;
     }
 
-    /* CART — slide in from right */
     .sidebar-cart {
         position: fixed;
         top: 0;
