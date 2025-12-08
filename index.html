@@ -38,7 +38,8 @@
                         <span class="fs-3 fw-bold">FashionRack POS</span>
                     </a>
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-secondary">
+                        <li> <a href="#productsPage" id="navProducts"
+                                class="nav-link d-flex align-items-center flex-column text-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round"
@@ -53,7 +54,8 @@
                                 Products
                             </a>
                         </li>
-                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
+                        <li> <a href="#customersPage" id="navCustomers"
+                                class="nav-link d-flex align-items-center flex-column text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-users-icon lucide-users">
@@ -65,7 +67,8 @@
                                 Customers
                             </a>
                         </li>
-                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
+                        <li> <a href="#ordersPage" id="navOrders"
+                                class="nav-link d-flex align-items-center flex-column text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-receipt-text-icon lucide-receipt-text">
@@ -114,195 +117,217 @@
     </header>
     <main>
         <div class="container-fluid h-100">
-            <div class="row h-100 g-0">
-                <div class="main-container">
-                    <section class="sidebar-categories bg-light">
-                        <div class="categories-header">
-                            <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-tag"></i> Categories</h6>
-                            <button class="btn btn-sm btn-link" id="toggleSidebar">
-                                <i class="bi bi-chevron-left"></i>
-                            </button>
-                        </div>
-                        <div class="categories-list">
-                            <div class="category-item active" data-category="all" onclick="filterProducts('all')">
-                                <i class="bi bi-grid"></i>
-                                All Products
-                            </div>
-                            <div class="category-item" data-category="tops" onclick="filterProducts('tops')">
-                                <i class="bi bi-bag"></i>
-                                Tops
-                            </div>
-                            <div class="category-item" data-category="shirts" onclick="filterProducts('shirts')">
-                                <i class="bi bi-bag"></i>
-                                Shirts
-                            </div>
-                            <div class="category-item" data-category="dresses" onclick="filterProducts('dresses')">
-                                <i class="bi bi-bag"></i>
-                                Dresses
-                            </div>
-                            <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
-                                <i class="bi bi-bag"></i>
-                                Pants
-                            </div>
-                            <div class="category-item" data-category="accessories" onclick="filterProducts('accessories')">
-                                <i class="bi bi-bag"></i>
-                                Accessories
-                            </div>
-                            <div class="category-item" data-category="footwear" onclick="filterProducts('footwear')">
-                                <i class="bi bi-bag"></i>
-                                Footwear
-                            </div>
-                            <div class="category-item" data-category="outerwear" onclick="filterProducts('outerwear')">
-                                <i class="bi bi-bag"></i>
-                                Outerwear
-                            </div>
-                            <div class="category-item" data-category="seasonal" onclick="filterProducts('seasonal')">
-                                <i class="bi bi-bag"></i>
-                                Seasonal
-                            </div>
-                            <div class="category-item" data-category="sale" onclick="filterProducts('sale')">
-                                <i class="bi bi-bag"></i>
-                                Sale Items
-                            </div>
-                        </div>
-                        <div class="filter-section mt-3">
-                            <h6 class="filter-header">Filter</h6>
-                            <div class="filter-group">
-                                <label class="filter-label">
-                                    <input type="checkbox" class="form-check-input gender-filter" data-gender="men" />
-                                    Men
-                                </label>
-                                <label class="filter-label">
-                                    <input type="checkbox" class="form-check-input gender-filter" data-gender="women" />
-                                    Women
-                                </label>
-                                <label class="filter-label">
-                                    <input type="checkbox" class="form-check-input gender-filter" data-gender="unisex" />
-                                    Unisex
-                                </label>
-                            </div>
-                        </div>
-                        <div class="categories-footer">
-                            <hr>
-                            <button class="btn btn-sm btn-outline-secondary w-100 mb-2" data-bs-toggle="modal"
-                                data-bs-target="#categoriesModal">
-                                <i class="bi bi-sliders"></i>
-                                Manage
-                            </button>
-                            <button class="btn btn-sm btn-outline-secondary w-100" id="darkModeToggle"
-                                onclick="toggleDarkMode()">
-                                <i class="bi bi-moon"></i>
-                                Dark
-                            </button>
-                        </div>
-                    </section>
-                    <section class="products-section">
-                        <div class="products-header">
-                            <h5 id="sectionTitle" class="fs-4 fw-semibold text-uppercase">Products</h5>
-                            <span class="badge bg-secondary" id="productCount">0</span>
-                        </div>
-                        <div class="products-toolbar">
-                            <div class="input-group search-group">
-                                <span class="input-group-text bg-white border-start-1">
-                                    <i class="bi bi-search"></i>
-                                </span>
-                                <input type="text" class="form-control border-start-0" id="searchInput"
-                                    placeholder="Search products...">
-                            </div>
-    
-                            <div class="toolbar-actions">
-                                <select class="form-select form-select" id="sortDropdown">
-                                    <option value="name">Sort by Name</option>
-                                    <option value="price-low">Price: Low to High</option>
-                                    <option value="price-high">Price: High to Low</option>
-                                    <option value="newest">Newest First</option>
-                                </select>
-    
-                                <button class="btn btn-outline-secondary" id="gridToggle" title="Toggle Grid/List View">
-                                    <i class="bi bi-grid-3x2-gap"></i>
-                                </button>
-    
-                                <button class="btn btn-outline-primary" id="toggleCartSidebarBtn">
-                                    <i class="bi bi-cart"></i>
-                                    <span id="cartSidebarBadge" class="badge bg-danger">0</span>
+            <!-- Products Page -->
+            <section id="productsPage" class="d-none p-4">
+                <div class="row h-100 g-0">
+                    <div class="main-container">
+                        <section class="sidebar-categories bg-light">
+                            <div class="categories-header">
+                                <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-tag"></i> Categories
+                                </h6>
+                                <button class="btn btn-sm btn-link" id="toggleSidebar">
+                                    <i class="bi bi-chevron-left"></i>
                                 </button>
                             </div>
-                        </div>
-                        <div class="products-grid" id="productsContainer">
-                        </div>
-                        <div class="empty-state d-none" id="emptyState">
-                            <i class="bi bi-inbox"></i>
-                            <p>No items found</p>
-                        </div>
-                        <div class="loading-state d-none" id="loadingState">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            <p>Loading products...</p>
-                        </div>
-                    </section>
-                    <section class="sidebar-cart bg-light">
-                        <div class="cart-header">
-                            <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-cart"></i> Cart</h6>
-                            <span class="badge bg-danger rounded-pill" id="cartCount">0</span>
-                        </div>
-                        <div class="cart-items-scroll" id="cartItems">
-                            <div class="empty-cart text-center py-5">
-                                <i class="bi bi-cart-x"></i>
-                                <p class="text-muted">Your cart is empty</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="cart-summary">
-                            <div class="summary-row">
-                                <span>Subtotal</span>
-                                <span id="subtotal">LKR 0.00</span>
-                            </div>
-                            <div class="discount-section mt-2">
-                                <button class="btn btn-sm btn-link p-0 w-100 text-start" data-bs-toggle="collapse"
-                                    data-bs-target="#discountPanel">
-                                    <i class="bi bi-percent"></i> Discount
-                                </button>
-                                <div class="collapse" id="discountPanel">
-                                    <div class="discount-input mt-2 mb-2">
-                                        <input type="number" class="form-control form-control-sm" id="discountAmount"
-                                            placeholder="Amount" min="0">
-                                        <select class="form-select form-select-sm mt-1" id="discountType">
-                                            <option value="fixed">Fixed Amount</option>
-                                            <option value="percent">Percentage</option>
-                                        </select>
-                                        <button class="btn btn-sm btn-primary mt-1 w-100"
-                                            onclick="applyDiscount()">Apply</button>
-                                    </div>
+                            <div class="categories-list">
+                                <div class="category-item active" data-category="all" onclick="filterProducts('all')">
+                                    <i class="bi bi-grid"></i>
+                                    All Products
+                                </div>
+                                <div class="category-item" data-category="tops" onclick="filterProducts('tops')">
+                                    <i class="bi bi-bag"></i>
+                                    Tops
+                                </div>
+                                <div class="category-item" data-category="shirts" onclick="filterProducts('shirts')">
+                                    <i class="bi bi-bag"></i>
+                                    Shirts
+                                </div>
+                                <div class="category-item" data-category="dresses" onclick="filterProducts('dresses')">
+                                    <i class="bi bi-bag"></i>
+                                    Dresses
+                                </div>
+                                <div class="category-item" data-category="pants" onclick="filterProducts('pants')">
+                                    <i class="bi bi-bag"></i>
+                                    Pants
+                                </div>
+                                <div class="category-item" data-category="accessories"
+                                    onclick="filterProducts('accessories')">
+                                    <i class="bi bi-bag"></i>
+                                    Accessories
+                                </div>
+                                <div class="category-item" data-category="footwear"
+                                    onclick="filterProducts('footwear')">
+                                    <i class="bi bi-bag"></i>
+                                    Footwear
+                                </div>
+                                <div class="category-item" data-category="outerwear"
+                                    onclick="filterProducts('outerwear')">
+                                    <i class="bi bi-bag"></i>
+                                    Outerwear
+                                </div>
+                                <div class="category-item" data-category="seasonal"
+                                    onclick="filterProducts('seasonal')">
+                                    <i class="bi bi-bag"></i>
+                                    Seasonal
+                                </div>
+                                <div class="category-item" data-category="sale" onclick="filterProducts('sale')">
+                                    <i class="bi bi-bag"></i>
+                                    Sale Items
                                 </div>
                             </div>
-                            <div class="summary-row">
-                                <span>Tax (10%)</span>
-                                <span id="tax">LKR 0.00</span>
+                            <div class="filter-section mt-3">
+                                <h6 class="filter-header">Filter</h6>
+                                <div class="filter-group">
+                                    <label class="filter-label">
+                                        <input type="checkbox" class="form-check-input gender-filter"
+                                            data-gender="men" />
+                                        Men
+                                    </label>
+                                    <label class="filter-label">
+                                        <input type="checkbox" class="form-check-input gender-filter"
+                                            data-gender="women" />
+                                        Women
+                                    </label>
+                                    <label class="filter-label">
+                                        <input type="checkbox" class="form-check-input gender-filter"
+                                            data-gender="unisex" />
+                                        Unisex
+                                    </label>
+                                </div>
                             </div>
-                            <div class="summary-row">
-                                <span>Service Charge</span>
-                                <span id="serviceCharge">LKR 0.00</span>
+                            <div class="categories-footer">
+                                <hr>
+                                <button class="btn btn-sm btn-outline-secondary w-100 mb-2" data-bs-toggle="modal"
+                                    data-bs-target="#categoriesModal">
+                                    <i class="bi bi-sliders"></i>
+                                    Manage
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary w-100" id="darkModeToggle"
+                                    onclick="toggleDarkMode()">
+                                    <i class="bi bi-moon"></i>
+                                    Dark
+                                </button>
+                            </div>
+                        </section>
+                        <section class="products-section">
+                            <div class="products-header">
+                                <h5 id="sectionTitle" class="fs-4 fw-semibold text-uppercase">Products</h5>
+                                <span class="badge bg-secondary" id="productCount">0</span>
+                            </div>
+                            <div class="products-toolbar">
+                                <div class="input-group search-group">
+                                    <span class="input-group-text bg-white border-start-1">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-start-0" id="searchInput"
+                                        placeholder="Search products...">
+                                </div>
+
+                                <div class="toolbar-actions">
+                                    <select class="form-select form-select" id="sortDropdown">
+                                        <option value="name">Sort by Name</option>
+                                        <option value="price-low">Price: Low to High</option>
+                                        <option value="price-high">Price: High to Low</option>
+                                        <option value="newest">Newest First</option>
+                                    </select>
+
+                                    <button class="btn btn-outline-secondary" id="gridToggle"
+                                        title="Toggle Grid/List View">
+                                        <i class="bi bi-grid-3x2-gap"></i>
+                                    </button>
+
+                                    <button class="btn btn-outline-primary" id="toggleCartSidebarBtn">
+                                        <i class="bi bi-cart"></i>
+                                        <span id="cartSidebarBadge" class="badge bg-danger">0</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="products-grid" id="productsContainer">
+                            </div>
+                            <div class="empty-state d-none" id="emptyState">
+                                <i class="bi bi-inbox"></i>
+                                <p>No items found</p>
+                            </div>
+                            <div class="loading-state d-none" id="loadingState">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p>Loading products...</p>
+                            </div>
+                        </section>
+                        <section class="sidebar-cart bg-light">
+                            <div class="cart-header">
+                                <h6 class="fs-4 fw-semibold text-uppercase mb-0"><i class="bi bi-cart"></i> Cart</h6>
+                                <span class="badge bg-danger rounded-pill" id="cartCount">0</span>
+                            </div>
+                            <div class="cart-items-scroll" id="cartItems">
+                                <div class="empty-cart text-center py-5">
+                                    <i class="bi bi-cart-x"></i>
+                                    <p class="text-muted">Your cart is empty</p>
+                                </div>
                             </div>
                             <hr>
-                            <div class="summary-row summary-total">
-                                <span>Total</span>
-                                <span id="totalAmount">LKR 0.00</span>
+                            <div class="cart-summary">
+                                <div class="summary-row">
+                                    <span>Subtotal</span>
+                                    <span id="subtotal">LKR 0.00</span>
+                                </div>
+                                <div class="discount-section mt-2">
+                                    <button class="btn btn-sm btn-link p-0 w-100 text-start" data-bs-toggle="collapse"
+                                        data-bs-target="#discountPanel">
+                                        <i class="bi bi-percent"></i> Discount
+                                    </button>
+                                    <div class="collapse" id="discountPanel">
+                                        <div class="discount-input mt-2 mb-2">
+                                            <input type="number" class="form-control form-control-sm"
+                                                id="discountAmount" placeholder="Amount" min="0">
+                                            <select class="form-select form-select-sm mt-1" id="discountType">
+                                                <option value="fixed">Fixed Amount</option>
+                                                <option value="percent">Percentage</option>
+                                            </select>
+                                            <button class="btn btn-sm btn-primary mt-1 w-100"
+                                                onclick="applyDiscount()">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Tax (10%)</span>
+                                    <span id="tax">LKR 0.00</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Service Charge</span>
+                                    <span id="serviceCharge">LKR 0.00</span>
+                                </div>
+                                <hr>
+                                <div class="summary-row summary-total">
+                                    <span>Total</span>
+                                    <span id="totalAmount">LKR 0.00</span>
+                                </div>
+                                <div class="mt-3">
+                                    <label class="form-label">Customer</label>
+                                    <select class="form-select form-select-sm" id="customerSelect">
+                                        <option value="">Walk-in Customer</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-success btn-lg w-100 mt-3" id="checkoutBtn"
+                                    data-bs-toggle="modal" data-bs-target="#checkoutModal" disabled>
+                                    Proceed to Checkout
+                                </button>
                             </div>
-                            <div class="mt-3">
-                                <label class="form-label">Customer</label>
-                                <select class="form-select form-select-sm" id="customerSelect">
-                                    <option value="">Walk-in Customer</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-success btn-lg w-100 mt-3" id="checkoutBtn" data-bs-toggle="modal"
-                                data-bs-target="#checkoutModal" disabled>
-                                Proceed to Checkout
-                            </button>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- Customers Page -->
+            <section id="customersPage" class="d-none p-4">
+
+            </section>
+
+            <!-- Orders Page -->
+            <section id="ordersPage" class="d-none p-4">
+                
+            </section>
         </div>
     </main>
 
@@ -377,12 +402,12 @@
                                 placeholder="0.00" min="0" step="0.01">
                         </div>
                         <div class="btn-group w-100 mb-3" role="group">
-                            <button type="button" class="btn btn-outline-secondary"
-                                onclick="setQuickAmount(50)">+LKR 50</button>
-                            <button type="button" class="btn btn-outline-secondary"
-                                onclick="setQuickAmount(100)">+LKR 100</button>
-                            <button type="button" class="btn btn-outline-secondary"
-                                onclick="setQuickAmount(200)">+LKR 200</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="setQuickAmount(50)">+LKR
+                                50</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="setQuickAmount(100)">+LKR
+                                100</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="setQuickAmount(200)">+LKR
+                                200</button>
                         </div>
                         <div class="alert alert-info">
                             <strong>Change Due:</strong> <span id="changeDue">LKR 0.00</span>
@@ -644,13 +669,13 @@
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS (Module System) files -->
     <script src="assets/js/utils.js"></script>
+    <script src="assets/js/sampleData.js"></script>
+    <script src="assets/js/storage.js"></script>
     <script src="assets/js/product.js"></script>
     <script src="assets/js/cart.js"></script>
     <script src="assets/js/customer.js"></script>
     <script src="assets/js/orders.js"></script>
     <script src="assets/js/ui.js"></script>
-    <script src="assets/js/storage.js"></script>
-    <script src="assets/js/sampleData.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 
