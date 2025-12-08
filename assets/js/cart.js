@@ -24,12 +24,14 @@ function addToCart(productId) {
     }
 
     updateCart()
+    saveCartToStorage()
     showStatusMessage(`${product.name} added to cart`, 2000)
 }
 
 function removeFromCart(productId) {
     cart = cart.filter(item => item.id !== productId)
     updateCart()
+    saveCartToStorage()
 }
 
 function updateQuantity(productId, quantity) {
@@ -42,6 +44,7 @@ function updateQuantity(productId, quantity) {
     } else if (quantity <= item.stock) {
         item.quantity = quantity
         updateCart()
+        saveCartToStorage()
     } else {
         alert(`Cannot exceed available stock (${item.stock})`)
     }
@@ -151,4 +154,5 @@ function resetCart() {
     document.getElementById('cardRefId').value = ''
 
     updateCart()
+    saveCartToStorage()
 }
