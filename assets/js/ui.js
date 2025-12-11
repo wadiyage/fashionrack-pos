@@ -158,6 +158,20 @@ function setupEventListeners() {
         })
     })
 
+    const navProducts = document.getElementById('navProducts')
+    navProducts?.addEventListener('click', () => {
+        showPage('productsPage')
+    })
+
+    const navCustomers = document.getElementById('navCustomers')
+    navCustomers?.addEventListener('click', () => {
+        showPage('customersPage')
+    })
+
+    const navOrders = document.getElementById('navOrders')
+    navOrders?.addEventListener('click', () => {
+        showPage('ordersPage')
+    })
 
     window.addEventListener('resize', handleResponsiveSidebar)
     handleResponsiveSidebar()
@@ -170,4 +184,22 @@ function saveSettings() {
     const taxRate = parseFloat(document.getElementById('taxRate').value) / 100
     // In a real app, these would be saved to localStorage or backend
     showStatusMessage('Settings saved', 2000)
+}
+
+function showPage(page) {
+    const pages = ['productsPage', 'customersPage', 'ordersPage']
+
+    pages.forEach(p => {
+        document.getElementById(p).classList.add('d-none')
+    })
+
+    const activePage = document.getElementById(page)
+    activePage.classList.remove('d-none')
+
+    const headerHeight = document.querySelector('header').offsetHeight
+
+    window.scrollTo({
+        top: activePage.offsetTop - headerHeight,
+        behavior: 'smooth'
+    })
 }
