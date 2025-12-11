@@ -25,6 +25,8 @@ function initializeApp() {
     loadProducts();
     setupEventListeners();
     populateCustomerSelect();
+
+    if(typeof renderCustomersTable === 'function') renderCustomersTable()
     showStatusMessage('System ready', 3000);
 }
 
