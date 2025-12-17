@@ -400,7 +400,66 @@ const sampleProducts = [
 ]
 
 const sampleCustomers = [
-    { id: 1, name: 'John Doe', phone: '555-0001', email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', phone: '555-0002', email: 'jane@example.com' },
-    { id: 3, name: 'Mike Johnson', phone: '555-0003', email: 'mike@example.com' }
+    {
+        id: 1,
+        name: 'Nimal Perera',
+        phone: '0771234567',
+        email: 'nimal.perera@gmail.com'
+    },
+    {
+        id: 2,
+        name: 'Kamal Fernando',
+        phone: '0712345678',
+        email: 'kamal.fernando@gmail.com'
+    },
+    {
+        id: 3,
+        name: 'Saman Jayasinghe',
+        phone: '0723456789',
+        email: 'saman.jayasinghe@gmail.com'
+    },
+    {
+        id: 4,
+        name: 'Ruwan Silva', phone
+            : '0754567890', email
+            : 'ruwan.silva@gmail.com'
+    },
+    {
+
+        id: 5,
+        name: 'Chathura Wijesinghe',
+        phone: '0765678901',
+        email: 'chathura.wijesinghe@gmail.com'
+    },
+    {
+        id: 6,
+        name: 'Tharindu Gunasekara',
+        phone: '0786789012',
+        email: 'tharindu.gunasekara@gmail.com'
+    },
+    {
+        id: 7,
+        name: 'Sanduni Ratnayake',
+        phone: '0707890123',
+        email: 'sanduni.ratnayake@gmail.com'
+    },
+    {
+        id: 8,
+        name: 'Dilshan Abeysekera',
+        phone: '0778901234',
+        email: 'dilshan.abeysekera@gmail.com'
+    },
+    {
+        id: 9,
+        name: 'Ishara Karunaratne',
+        phone: '0719012345',
+        email: 'ishara.karunaratne@gmail.com'
+    },
+    {
+        id: 10,
+        name: 'Pavithra Senanayake',
+        phone: '0720123456',
+        email: 'pavithra.senanayake@gmail.com'
+    }
 ]
+

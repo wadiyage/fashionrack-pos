@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/products.css">
+    <link rel="stylesheet" href="assets/css/customers.css">
     <link rel="stylesheet" href="assets/css/cart.css">
     <link rel="stylesheet" href="assets/css/modals.css">
     <link rel="stylesheet" href="assets/css/utilities.css">
@@ -321,12 +322,54 @@
 
             <!-- Customers Page -->
             <section id="customersPage" class="d-none page-offset">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div>
+                                <h3 class="mb-0">Customers</h3>
+                                <small class="text-muted">Manage your customer list</small>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+                                    <input type="text" id="customerSearchInput" class="form-control"
+                                        placeholder="Search customers by name or phone">
+                                </div>
+                                <button class="btn btn-primary" id="addCustomerBtn" data-bs-toggle="modal"
+                                    data-bs-target="#customerModal">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Add Customer
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th style="width:48px;">#</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th style="width:160px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customersTableBody">
+                                    <!-- rows rendered by assets/js/customer.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
             </section>
 
             <!-- Orders Page -->
             <section id="ordersPage" class="d-none page-offset">
-                
+
             </section>
         </div>
     </main>
