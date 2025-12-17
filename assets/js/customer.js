@@ -38,8 +38,8 @@ function renderCustomersTable(list = null) {
             <td>${escapeHtml(c.email || '')}</td>
             <td>
                 <div class="btn-group" role="group">
-                    <button class="btn btn-sm btn-outline-primary onClick=""><i class="bi bi-pencil"></i>Edit</button>
-                    <button class="btn btn-sm btn-outline-danger onClick=""><i class="bi bi-trash"></i>Delete</button>
+                    <button class="btn btn-sm btn-outline-primary" onClick="editCustomer(${c.id})"><i class="bi bi-pencil"></i>Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" onClick="deleteCustomer(${c.id})"><i class="bi bi-trash"></i>Delete</button>
                 </div>
             </td>
         </tr>
@@ -84,14 +84,6 @@ function saveCustomer() {
         renderCustomersTable()
         populateCustomerSelect()
         showStatusMessage('Customer updated', 2000)
-    }
-
-    const newCustomer = {
-        id: customers.length + 1,
-        name,
-        phone,
-        email,
-        address
     }
 
     editingCustomerId = null
