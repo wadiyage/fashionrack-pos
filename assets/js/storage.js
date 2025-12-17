@@ -1,7 +1,7 @@
 const STORAGE_KEYS = {
-    PRODUCTS: 'pos_products',
-    CUSTOMERS: 'pos_customers',
-    CART: 'pos_cart'
+    PRODUCTS: 'products',
+    CUSTOMERS: 'customers',
+    CART: 'cart'
 }
 
 function saveProductsToStorage() {
@@ -32,24 +32,21 @@ function loadCartFromStorage() {
 }
 
 function initializeStorage(sampleProducts, sampleCustomers) {
-    const storedProducts = loadProductsFromStorage()
-    const storedCustomers = loadCustomersFromStorage()
+    products = loadFromStorage(STORAGE_KEYS.PRODUCTS, sampleProducts)
 
-    if (!storedProducts || storedProducts.length === 0) {
-        products = JSON.parse(JSON.stringify(sampleProducts))
-        saveProductsToStorage()
-    } else {
-        products = storedProducts
+    const storedCustomers = loadFromStorage(STORAGE_KEYS.CUSTOMERS, sampleCustomers)
+    customers = storedCustomers.length ? storedCustomers : JSON.parse(JSON.stringify(sampleCustomers))
+
+    cart = loadFromStorage(STORAGE_KEYS.CART, [])
+}
+
+function loadFromStorage(key, fallback) {
+    const raw = localStorage.getItem(key)
+    if(!raw) {
+        localStorage.setItem(key, JSON.stringify(fallback))
+        return JSON.parse(JSON.stringify(fallback))
     }
-
-    if (!storedCustomers || storedCustomers.length === 0) {
-        customers = JSON.parse(JSON.stringify(sampleCustomers))
-        saveCustomersToStorage()
-    } else {
-        customers = storedCustomers
-    }
-
-    cart = loadCartFromStorage()
+    return JSON.parse(raw)
 }
 
 function clearAllStorage() {
