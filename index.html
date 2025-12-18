@@ -82,7 +82,7 @@
                                 Orders
                             </a>
                         </li>
-                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
+                        <li> <a href="#helpPage" id="navHelp" class="nav-link d-flex align-items-center flex-column text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
@@ -93,7 +93,7 @@
                                 Help
                             </a>
                         </li>
-                        <li> <a href="#" class="nav-link d-flex align-items-center flex-column text-white">
+                        <li> <a href="#settingsPage" id="navSettings" class="nav-link d-flex align-items-center flex-column text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings">
@@ -441,6 +441,39 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Help Page -->
+            <div id="helpPage" class="page d-none">
+                <div class="container py-4">
+                    <h2>Help & Support</h2>
+                    <p>Welcome to the FashionRack POS help center.</p>
+                    <ul>
+                        <li>Search orders using Order ID or customer name</li>
+                        <li>Export orders as CSV or PDF</li>
+                        <li>Manage products, customers, and orders efficiently</li>
+                        <li>Contact support: support@fashionrack.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settingsPage" class="page d-none">
+                <div class="container py-4">
+                    <h2>Settings</h2>
+                    <form id="settingsForm">
+                        <div class="mb-3">
+                            <label for="taxRate" class="form-label">Tax Rate (%)</label>
+                            <input type="number" id="taxRate" class="form-control" value="10">
+                        </div>
+                        <div class="mb-3">
+                            <label for="serviceChargeRate" class="form-label">Service Charge (%)</label>
+                            <input type="number" id="serviceChargeRate" class="form-control" value="0">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </main>
 

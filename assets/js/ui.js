@@ -178,7 +178,13 @@ function setupEventListeners() {
 
     const exportPdfBtn = document.getElementById('exportPdfBtn')
     if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportOrdersToPDF)
-    
+
+    const navHelp = document.getElementById('navHelp')
+    navHelp?.addEventListener('click', () => showPage('helpPage'))
+
+    const navSettings = document.getElementById('navSettings')
+    navSettings?.addEventListener('click', () => showPage('settingsPage'))
+
 
     window.addEventListener('resize', handleResponsiveSidebar)
     handleResponsiveSidebar()
@@ -194,7 +200,7 @@ function saveSettings() {
 }
 
 function showPage(page) {
-    const pages = ['productsPage', 'customersPage', 'ordersPage']
+    const pages = ['productsPage', 'customersPage', 'ordersPage', 'helpPage', 'settingsPage']
 
     pages.forEach(p => {
         document.getElementById(p).classList.add('d-none')
@@ -217,4 +223,7 @@ function showPage(page) {
         top: activePage.offsetTop - headerHeight,
         behavior: 'smooth'
     })
+
+    
+
 }
