@@ -1,3 +1,5 @@
+currentFilteredOrders = []
+
 function updateCheckoutModal() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
     const discountAmount = discountType === 'percent'
@@ -241,8 +243,9 @@ function emailReceipt() {
 
 function renderOrdersTable(list = orders) {
     const tbody = document.getElementById('ordersTableBody')
-
     if (!tbody) return
+
+    currentFilteredOrders = [...list]
 
     if (!list.length) {
         tbody.innerHTML = `
@@ -348,5 +351,113 @@ function applyOrderFilters() {
             order => new Date(order.date) <= endDate
         )
     }
+
     renderOrdersTable(filteredOrders)
+}
+
+function exportOrdersToCSV() {
+    if(!currentFilteredOrders.length) {
+        alert('No orders to export')
+        return
+    }
+
+    const headers = [
+        'Order ID',
+        'Date',
+        'Customer Name',
+        'Items',
+        'Subtotal',
+        'Tax',
+        'Service Charge',
+        'Total',
+        'Payment Method',
+        'Status'
+    ]
+
+    const rows = currentFilteredOrders.map(order => [
+        order.id,
+        new Date(order.date).toLocaleString(),
+        order.customerName,
+        order.items.length,
+        order.subtotal.toFixed(2),
+        order.tax.toFixed(2),
+        order.serviceCharge.toFixed(2),
+        order.total.toFixed(2),
+        order.paymentMethod,
+        order.status
+    ])
+
+    const csvContent = 
+        [headers, ...rows]
+            .map(row => row.map(val => `"${val}"`).join(','))
+            .join('\n')
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `orders_${Date.now()}.csv`
+    link.click()
+
+    URL.revokeObjectURL(url)
+}
+
+function exportOrdersToPDF() {
+    if(!currentFilteredOrders.length) {
+        alert('No orders to export')
+        return
+    }
+
+    const rows = currentFilteredOrders.map(order => `
+       <tr>
+           <td>${order.id}</td>
+           <td>${new Date(order.date).toLocaleString()}</td>
+           <td>${order.customerName}</td>
+           <td style="text-align: center;">${order.items.length}</td>
+           <td style="text-align: right;">${order.subtotal.toFixed(2)}</td>
+           <td>${order.paymentMethod}</td>
+           <td>${order.status}</td>
+       </tr>
+    `).join('')
+
+    const html = `
+        <html>
+        <head>
+            <title>Orders Report</title>
+            <style>
+                body { font-family: Arial, sans-serif;}
+                h2 { text-align: center; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                th, td { border: 1px solid #ddd; padding: 8px; }
+                th { background-color: #333; color: fff; }
+            </style>
+        </head>
+        <body>
+            <h2>Orders Report</h2>
+            <p>Generated: ${new Date().toLocaleString()}</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order #</th>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows}
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `
+
+    const win = window.open('', '_blank')
+    win.document.write(html)
+    win.document.close()
+    win.print()
 }

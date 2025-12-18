@@ -1,7 +1,10 @@
 let products = []
 let customers = []
+
 let cart = []
+
 let orders = []
+let currentFilteredOrders = []
 
 let currentCategory = 'all'
 
