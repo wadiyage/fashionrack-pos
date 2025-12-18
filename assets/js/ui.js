@@ -196,6 +196,14 @@ function showPage(page) {
     const activePage = document.getElementById(page)
     activePage.classList.remove('d-none')
 
+    if (page === 'ordersPage' && typeof renderOrdersTable === 'function') {
+        renderOrdersTable()
+    }
+
+    if (page === 'customersPage' && typeof renderCustomersTable === 'function') {
+        renderCustomersTable()
+    }
+
     const headerHeight = document.querySelector('header').offsetHeight
 
     window.scrollTo({

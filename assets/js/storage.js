@@ -1,7 +1,8 @@
 const STORAGE_KEYS = {
     PRODUCTS: 'products',
     CUSTOMERS: 'customers',
-    CART: 'cart'
+    CART: 'cart',
+    ORDERS: 'orders'
 }
 
 function saveProductsToStorage() {
@@ -14,6 +15,10 @@ function saveCustomersToStorage() {
 
 function saveCartToStorage() {
     localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart))
+}
+
+function saveOrdersToStorage() {
+    localStorage.setItem(STORAGE_KEYS.ORDERS, JSON.stringify(orders))
 }
 
 function loadProductsFromStorage() {
@@ -31,6 +36,11 @@ function loadCartFromStorage() {
     return stored ? JSON.parse(stored) : []
 }
 
+function loadOrdersFromStorage() {
+    const stored = localStorage.getItem(STORAGE_KEYS.ORDERS)
+    return stored ? JSON.parse(stored) : []
+}
+
 function initializeStorage(sampleProducts, sampleCustomers) {
     products = loadFromStorage(STORAGE_KEYS.PRODUCTS, sampleProducts)
 
@@ -38,6 +48,7 @@ function initializeStorage(sampleProducts, sampleCustomers) {
     customers = storedCustomers.length ? storedCustomers : JSON.parse(JSON.stringify(sampleCustomers))
 
     cart = loadFromStorage(STORAGE_KEYS.CART, [])
+    orders = loadFromStorage(STORAGE_KEYS.ORDERS, [])
 }
 
 function loadFromStorage(key, fallback) {
