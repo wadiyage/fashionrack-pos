@@ -390,13 +390,17 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3 g-3">
+                        <div class="row justify-content-between align-items-center">
+                            <!-- Search Input -->
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-                                    <input type="text" id="orderSearchInput" class="form-control" placeholder="Search by order # or customer name">
+                                    <input type="text" id="orderSearchInput" class="form-control"
+                                        placeholder="Search by order # or customer name">
                                 </div>
                             </div>
+
+                            <!-- Status Filter -->
                             <div class="col-md-2">
                                 <select class="form-select" id="statusFilter">
                                     <option value="">All Status</option>
@@ -405,11 +409,15 @@
                                     <option value="cancelled">Cancelled</option>
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <input type="date" class="form-control" id="startDateFilter" placeholder="Start Date">
-                            </div>
-                            <div class="col-md-3">
-                                <input type="date" class="form-control" id="endDateFilter" placeholder="End Date">
+                        </div>
+                        <div class="row justify-content-end align-items-center mb-3">
+                            <div class="col-md-6">
+                                <label for="" class="form-label">Date Range</label>
+                                <div class="d-flex gap-2">
+                                    <input type="date" class="form-control" id="startDateFilter">
+                                    <span class="align-self-center text-muted">to</span>
+                                    <input type="date" class="form-control" id="endDateFilter">
+                                </div>
                             </div>
                         </div>
 

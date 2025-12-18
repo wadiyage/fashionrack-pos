@@ -291,3 +291,62 @@ function viewOrderDetails(orderId) {
     receiptModal.show()
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('orderSearchInput')
+
+    const statusFilter = document.getElementById('statusFilter')
+    const startDateFilter = document.getElementById('startDateFilter')
+    const endDateFilter = document.getElementById('endDateFilter')
+
+    if(!searchInput) return
+
+    ;[searchInput, statusFilter, startDateFilter, endDateFilter].forEach(el => {
+        el.addEventListener('input', applyOrderFilters)
+        el.addEventListener('change', applyOrderFilters)
+    })
+})
+
+function applyOrderFilters() {
+    const searchValue = 
+        document.getElementById('orderSearchInput').value
+            .trim().toLowerCase()
+    const statusValue = 
+        document.getElementById('statusFilter').value.toLowerCase()
+    const startDateValue = 
+        document.getElementById('startDateFilter').value
+    const endDateValue = 
+        document.getElementById('endDateFilter').value
+
+    let filteredOrders = [...orders]
+
+    if (searchValue) {
+        filteredOrders = filteredOrders.filter(order => {
+            return (
+                order.id.toLowerCase().includes(searchValue) ||
+                order.customerName.toLowerCase().includes(searchValue) 
+            )  
+        })
+    }
+
+    if (statusValue) {
+        filteredOrders = filteredOrders.filter(
+            order => order.status.toLowerCase() === statusValue
+        )
+    }
+
+    if(startDateValue) {
+        const startDate = new Date(startDateValue)
+        filteredOrders = filteredOrders.filter(
+            order => new Date(order.date) >= startDate
+        )
+    }
+
+    if(endDateValue) {
+        const endDate = new Date(endDateValue)
+        endDate.setHours(23, 59, 59, 999)
+        filteredOrders = filteredOrders.filter(
+            order => new Date(order.date) <= endDate
+        )
+    }
+    renderOrdersTable(filteredOrders)
+}
