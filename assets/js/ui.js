@@ -173,6 +173,13 @@ function setupEventListeners() {
         showPage('ordersPage')
     })
 
+    const exportCsvBtn = document.getElementById('exportCsvBtn')
+    if (exportCsvBtn) exportCsvBtn.addEventListener('click', exportOrdersToCSV)
+
+    const exportPdfBtn = document.getElementById('exportPdfBtn')
+    if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportOrdersToPDF)
+    
+
     window.addEventListener('resize', handleResponsiveSidebar)
     handleResponsiveSidebar()
 
