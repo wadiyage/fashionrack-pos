@@ -369,7 +369,78 @@
 
             <!-- Orders Page -->
             <section id="ordersPage" class="d-none page-offset">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div>
+                                <h3 class="mb-0">Orders</h3>
+                                <small class="text-muted">Manage customer orders</small>
+                            </div>
 
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-success" id="exportCsvBtn">
+                                    <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+                                </button>
+                                <button class="btn btn-danger" id="exportPdfBtn">
+                                    <i class="bi bi-file-earmark-pdf"></i> Export PDF
+                                </button>
+                                <button class="btn btn-primary" id="addOrderBtn">
+                                    <i class="bi bi-plus-lg"></i> New Order
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between align-items-center">
+                            <!-- Search Input -->
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                                    <input type="text" id="orderSearchInput" class="form-control"
+                                        placeholder="Search by order # or customer name">
+                                </div>
+                            </div>
+
+                            <!-- Status Filter -->
+                            <div class="col-md-2">
+                                <select class="form-select" id="statusFilter">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end align-items-center mb-3">
+                            <div class="col-md-6">
+                                <label for="" class="form-label">Date Range</label>
+                                <div class="d-flex gap-2">
+                                    <input type="date" class="form-control" id="startDateFilter">
+                                    <span class="align-self-center text-muted">to</span>
+                                    <input type="date" class="form-control" id="endDateFilter">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-middle">
+                                <thead class="table-dark ">
+                                    <tr>
+                                        <th style="width:80px;">Order #</th>
+                                        <th>Customer Name</th>
+                                        <th style="width:100px;">Items</th>
+                                        <th style="width:120px;">Total Amount</th>
+                                        <th style="width:100px;">Status</th>
+                                        <th style="width:120px;">Date</th>
+                                        <th style="width:150px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersTableBody">
+                                    <!-- Order rows will be rendered here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </main>

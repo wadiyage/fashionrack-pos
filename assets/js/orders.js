@@ -72,29 +72,83 @@ function completeSale() {
         return;
     }
 
-    if (selectedPaymentMethod === 'cash') {
-        const amountReceived = parseFloat(document.getElementById('amountReceived').value)
-        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-        const discountAmount = discountType === 'percent'
+    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+
+    const discountAmount =
+        discountType === 'percent'
             ? (subtotal * discountApplied / 100)
             : discountApplied
-        const taxableAmount = subtotal - discountAmount
-        const tax = taxableAmount * TAX_RATE
-        const serviceCharge = taxableAmount * SERVICE_CHARGE_RATE
-        const total = taxableAmount + tax + serviceCharge
+
+    const taxableAmount = subtotal - discountAmount
+    const tax = taxableAmount * TAX_RATE
+    const serviceCharge = taxableAmount * SERVICE_CHARGE_RATE
+    const total = taxableAmount + tax + serviceCharge
+
+    let paymentDetails = {}
+
+    if (selectedPaymentMethod === 'cash') {
+        const amountReceived = parseFloat(
+            document.getElementById('amountReceived').value || 0
+        )
 
         if (amountReceived < total) {
             alert('Insufficient payment amount')
             return
         }
+
+        paymentDetails = {
+            amountReceived,
+            change: amountReceived - total
+        }
     }
 
-    generateReceipt();
+    const order = {
+        id: `ORD-${String(orders.length + 1).padStart(5, '0')}`,
+        date: new Date().toISOString(),
+        customerId: document.getElementById('customerSelect').value || null,
+        customerName:
+            document.getElementById('customerSelect').selectedOptions[0]?.text ||
+            'Walk-in Customer',
+        items: cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity
+        })),
+        subtotal,
+        discount: {
+            type: discountType,
+            value: discountApplied,
+        },
+        tax,
+        serviceCharge,
+        total,
+        paymentMethod: selectedPaymentMethod,
+        paymentDetails,
+        status: 'Completed',
+    }
 
-    const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'))
+    orders.push(order)
+    saveOrdersToStorage()
+
+    cart.forEach(cartItem => {
+        const product = products.find(p => p.id === cartItem.id)
+        if (product) {
+            product.stock = Math.max(0, product.stock - cartItem.quantity, 0)
+        }
+    })
+    saveProductsToStorage()
+
+    generateReceipt(order);
+
+    const checkoutModal = bootstrap.Modal.getInstance(
+        document.getElementById('checkoutModal')
+    )
     checkoutModal.hide()
 
-    const receiptModal = new bootstrap.Modal(document.getElementById('receiptModal'))
+    const receiptModal = new bootstrap.Modal(
+        document.getElementById('receiptModal')
+    )
     receiptModal.show()
 
     setTimeout(() => {
@@ -102,26 +156,20 @@ function completeSale() {
     }, 1000)
 
     showStatusMessage('Order completed successfully!', 3000)
+
+    if(!document.getElementById('ordersPage').classList.contains('d-none')) {
+        renderOrdersTable()
+    }
 }
 
-function generateReceipt() {
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    const discountAmount = discountType === 'percent'
-        ? (subtotal * discountApplied / 100)
-        : discountApplied
-    const taxableAmount = subtotal - discountAmount;
-    const tax = taxableAmount * TAX_RATE;
-    const serviceCharge = taxableAmount * SERVICE_CHARGE_RATE
-    const total = taxableAmount + tax + serviceCharge
-
-    const orderNumber = document.getElementById('orderNumber').textContent
-    const timestamp = new Date().toLocaleString()
+function generateReceipt(order) {
+    const timestamp = new Date(order.date).toLocaleString()
 
     const receiptHTML = `
         <div style="text-align: center; font-family: monospace;">
             <h5>FASHIONRACK POS</h5>
             <p>================================</p>
-            <p><strong>Order #${orderNumber}</strong></p>
+            <p><strong>Order #${order.id}</strong></p>
             <p>${timestamp}</p>
             <p>================================</p>
             
@@ -131,29 +179,50 @@ function generateReceipt() {
                     <th style="text-align: center;">Qty</th>
                     <th style="text-align: right;">Total</th>
                 </tr>
-                ${cart.map(item => `
+                ${order.items.map(item => `
                     <tr>
                         <td style="text-align: left;">${item.name}</td>
                         <td style="text-align: center;">${item.quantity}</td>
-                        <td style="text-align: right;">$${(item.price * item.quantity).toFixed(2)}</td>
+                        <td style="text-align: right;">
+                            $${(item.price * item.quantity).toFixed(2)}
+                        </td>
                     </tr>
                 `).join('')}
             </table>
             
             <p>================================</p>
-            <p><strong>Subtotal:</strong> $${subtotal.toFixed(2)}</p>
-            ${discountAmount > 0 ? `<p><strong>Discount:</strong> -$${discountAmount.toFixed(2)}</p>` : ''}
-            <p><strong>Tax (10%):</strong> $${tax.toFixed(2)}</p>
-            <p><strong>Service Charge:</strong> $${serviceCharge.toFixed(2)}</p>
+            <p><strong>Subtotal:</strong> 
+                $${order.subtotal.toFixed(2)}
+                </p>
+            ${
+                order.discount?.value > 0
+                ? `<p><strong>Discount:</strong> -$${(
+                    order.discount.type === 'percent'
+                    ? (order.subtotal * order.discount.value / 100)
+                    : order.discount.value
+                ).toFixed(2)}</p>`
+                : ''
+            }
+
+            <p><strong>Tax (10%):</strong> $${order.tax.toFixed(2)}</p>
+            <p><strong>Service Charge:</strong> $${order.serviceCharge.toFixed(2)}</p>
             <p>================================</p>
-            <p style="font-size: 1.2rem;"><strong>TOTAL: $${total.toFixed(2)}</strong></p>
+            <p style="font-size: 1.2rem;">
+                <strong>TOTAL: $${order.total.toFixed(2)}</strong>
+            </p>
             <p>================================</p>
             
-            <p><strong>Payment Method:</strong> ${selectedPaymentMethod.toUpperCase()}</p>
-            ${selectedPaymentMethod === 'cash' ? `
-                <p><strong>Change Due:</strong> $${(parseFloat(document.getElementById('amountReceived').value || 0) - total).toFixed(2)}</p>
-            ` : ''}
+            <p><strong>Payment Method:</strong> ${order.paymentMethod.toUpperCase()}</p>
+
+            ${order.paymentMethod === 'cash'
+                ? ` <p><strong>Change Due:</strong> $${order.paymentDetails.change.toFixed(2)}</p>` 
+                : ''
+            }
             
+            <p style="margin-top: 10px;">
+                <strong>Customer:</strong> ${order.customerName}
+            </p>
+
             <p style="margin-top: 20px;">Thank you for your purchase!</p>
             <p>Please visit us again.</p>
         </div>
@@ -168,4 +237,116 @@ function printReceipt() {
 
 function emailReceipt() {
     alert('Email functionality would be implemented with backend integration')
+}
+
+function renderOrdersTable(list = orders) {
+    const tbody = document.getElementById('ordersTableBody')
+
+    if (!tbody) return
+
+    if (!list.length) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="text-center text-muted">
+                    No orders found
+                </td>
+            </tr>
+        `
+        return
+    }
+
+    tbody.innerHTML = list.map(order => `
+        <tr>
+            <td>${order.id}</td>
+            <td>${order.customerName}</td>
+            <td class="text-center">${order.items.length}</td>
+            <td>$${order.total.toFixed(2)}</td>
+            <td>
+                <span class="badge bg-success">
+                    ${order.status}
+                </span>
+            </td>
+            <td>${new Date(order.date).toLocaleString()}</td>
+            <td>
+                <button 
+                    class="btn btn-sm btn-outline-primary"
+                    onclick="viewOrderDetails('${order.id}')"
+                >
+                    View
+                </button>
+            </td>
+        </tr>
+    `).join('')
+}
+
+function viewOrderDetails(orderId) {
+    const order = orders.find(o => o.id === orderId)
+    if (!order) return
+
+    generateReceipt(order)
+
+    const receiptModal = new bootstrap.Modal(
+        document.getElementById('receiptModal')
+    )
+    receiptModal.show()
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('orderSearchInput')
+
+    const statusFilter = document.getElementById('statusFilter')
+    const startDateFilter = document.getElementById('startDateFilter')
+    const endDateFilter = document.getElementById('endDateFilter')
+
+    if(!searchInput) return
+
+    ;[searchInput, statusFilter, startDateFilter, endDateFilter].forEach(el => {
+        el.addEventListener('input', applyOrderFilters)
+        el.addEventListener('change', applyOrderFilters)
+    })
+})
+
+function applyOrderFilters() {
+    const searchValue = 
+        document.getElementById('orderSearchInput').value
+            .trim().toLowerCase()
+    const statusValue = 
+        document.getElementById('statusFilter').value.toLowerCase()
+    const startDateValue = 
+        document.getElementById('startDateFilter').value
+    const endDateValue = 
+        document.getElementById('endDateFilter').value
+
+    let filteredOrders = [...orders]
+
+    if (searchValue) {
+        filteredOrders = filteredOrders.filter(order => {
+            return (
+                order.id.toLowerCase().includes(searchValue) ||
+                order.customerName.toLowerCase().includes(searchValue) 
+            )  
+        })
+    }
+
+    if (statusValue) {
+        filteredOrders = filteredOrders.filter(
+            order => order.status.toLowerCase() === statusValue
+        )
+    }
+
+    if(startDateValue) {
+        const startDate = new Date(startDateValue)
+        filteredOrders = filteredOrders.filter(
+            order => new Date(order.date) >= startDate
+        )
+    }
+
+    if(endDateValue) {
+        const endDate = new Date(endDateValue)
+        endDate.setHours(23, 59, 59, 999)
+        filteredOrders = filteredOrders.filter(
+            order => new Date(order.date) <= endDate
+        )
+    }
+    renderOrdersTable(filteredOrders)
 }

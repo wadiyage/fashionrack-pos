@@ -1,6 +1,7 @@
-let cart = []
 let products = []
 let customers = []
+let cart = []
+let orders = []
 
 let currentCategory = 'all'
 
@@ -35,3 +36,4 @@ window.addEventListener('load', () => {
         document.body.classList.add('dark-mode')
     }
 })
+
